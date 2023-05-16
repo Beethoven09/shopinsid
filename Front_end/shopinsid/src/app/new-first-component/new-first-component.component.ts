@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './new-first-component.component.html',
   styleUrls: ['./new-first-component.component.scss']
 })
-export class NewFirstComponentComponent {
-
-}
+export class NewFirstComponentComponent{}
