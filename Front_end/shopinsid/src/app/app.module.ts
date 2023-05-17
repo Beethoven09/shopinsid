@@ -3,12 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NewFirstComponentComponent } from './new-first-component/new-first-component.component';
+import { ImageComponent } from './components/image/image.component';
+import { BoutonDetailComponent } from './components/bouton-detail/bouton-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NewFirstComponentComponent
+    ImageComponent,
+    BoutonDetailComponent,
   ],
   imports: [
     BrowserModule,
