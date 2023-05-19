@@ -3,3 +3,28 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+products_list:
+    path: /products
+    controller: App\Controller\ProductController::getAllProducts
+    methods: GET
+
+product_selection:
+    path: /products/{id}
+    controller: App\Controller\ProductController::getProduct
+    methods: GET
+
+product_creation:
+    path: /products
+    controller: App\Controller\ProductController::createNewProduct
+    methods: POST
+
+product_deletion : 
+    path: /products
+    controller: App\Controller\ProductController::deleteProduct
+    methods: DELETE
+
+product_modification :
+    path: /products
+    controller: App\Controller\ProductController::alterProduct
+    methods: PUT
