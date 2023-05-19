@@ -20,11 +20,11 @@ product_creation:
     methods: POST
 
 product_deletion : 
-    path: /products
+    path: /products/{id}
     controller: App\Controller\ProductController::deleteProduct
     methods: DELETE
 
 product_modification :
-    path: /products
+    path: /products/{id}
     controller: App\Controller\ProductController::alterProduct
     methods: PUT
