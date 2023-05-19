@@ -3,14 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ImageComponent } from './components/image/image.component';
-import { BoutonDetailComponent } from './components/bouton-detail/bouton-detail.component';
+/* IMPORT DES COMPONENTS */
+import { ProduitDetailComponent } from './components/produit-detail/produit-detail.component';
+import { ProduitCompactComponent } from './components/produit-compact/produit-compact.component';
+import { AllProduitComponent } from './components/all-produit/all-produit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ImageComponent,
-    BoutonDetailComponent,
+    ProduitDetailComponent,
+    ProduitCompactComponent,
+    AllProduitComponent,
   ],
   imports: [
     BrowserModule,

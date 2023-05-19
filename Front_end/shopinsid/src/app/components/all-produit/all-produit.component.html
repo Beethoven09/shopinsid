@@ -1,0 +1,5 @@
+<div *ngFor = "let produit of produits">
+    <ul>
+        <app-produit-compact [nom]="produit.nom" [imageUrl]="produit.imageUrl" [id]="produit.id"></app-produit-compact>
+    </ul>
+</div>

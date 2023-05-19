@@ -1,6 +1,18 @@
 .shopinsid-card {
-    width: 35%;
-    img {
-      width: 100%;
-    }
+  box-sizing: border-box;
+  width: 50%;
+  margin: 20px auto;
+  padding: 10px 30px;
+  box-shadow: lightgray 4px 4px 20px;
+  background-color: rgba(lightgreen, 0.4);
+  color: darkgreen;
+  border-radius: 8px;
+  
+  h2 {
+    margin-bottom: 0;
   }
+  p {
+    font-weight: 300;
+    font-size: 16px;
+  }
+}
