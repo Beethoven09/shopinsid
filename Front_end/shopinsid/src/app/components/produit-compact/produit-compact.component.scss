@@ -1,0 +1,25 @@
+$primary-color: #337ab7;
+$secondary-color: #5cb85c;
+$font-size-large: 24px;
+$margin-small: 10px;
+
+
+.presentation-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: $secondary-color;
+    border: none;
+    border-radius: 5px;
+    &:active {
+        transform: translate(1px, 1px);
+        box-shadow: lightgray 0 0 5px;
+      }
+}
+
+.presentation-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: $margin-small;
+    display: flex;
+}

@@ -1,6 +1,17 @@
-.shopinsid-card {
-    width: 35%;
-    img {
-      width: 100%;
-    }
-  }
+$primary-color: #337ab7;
+$secondary-color: #5cb85c;
+$font-size-large: 24px;
+$margin-small: 10px;
+
+.presentation-title {
+  font-size: $font-size-large;
+  color: $primary-color;
+  margin-bottom: $margin-small;
+}
+
+.presentation-paragraph {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: $margin-small;
+}
+
