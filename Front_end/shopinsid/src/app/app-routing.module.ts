@@ -9,7 +9,7 @@ const routes: Routes = [
   /* Lien vers un autre component destination */
   {path: 'components/all-produit', component: AllProduitComponent},
   {path: 'components/produit-compact', component: ProduitCompactComponent},
-  {path: 'components/produit-detail', component: ProduitDetailComponent}
+  {path: 'components/produit-detail/:iden', component: ProduitDetailComponent}
 ];
 
 @NgModule({
@@ -18,7 +18,3 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-/*produit-detail : component : Image, détail, prix.
-  produit-compact : component : Image & nom.
-  all-produit : component : liste de produits
-*/

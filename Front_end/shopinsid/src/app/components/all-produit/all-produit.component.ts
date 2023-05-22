@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-all-produit',
@@ -7,17 +8,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./all-produit.component.scss']
 })
 
-export class AllProduitComponent {
-  produits = [
-    {
-      nom: "1er produit",
-      imageUrl: "../../../assets/smiley.jpg",
-      prix: 6.00,
-      description: "Voici le premier produit du site.",
-      id: 1111
-    }
-  ];
-  constructor(private router: Router)
+export class AllProduitComponent implements OnInit{
+  produits!: any[];
+
+  constructor(private router: Router,private http: HttpClient)
     { }
   
+  ngOnInit(){
+    this.http.get<any[]>('../../../assets/list-products.json').subscribe(
+      (data: any[]) => {
+        this.produits = data;
+      },
+      (error) => {
+        console.error('Error fetching JSON file:', error);
+      }
+    )
+  }
 }

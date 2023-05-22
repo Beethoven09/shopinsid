@@ -1,18 +1,17 @@
-.shopinsid-card {
-  box-sizing: border-box;
-  width: 50%;
-  margin: 20px auto;
-  padding: 10px 30px;
-  box-shadow: lightgray 4px 4px 20px;
-  background-color: rgba(lightgreen, 0.4);
-  color: darkgreen;
-  border-radius: 8px;
-  
-  h2 {
-    margin-bottom: 0;
-  }
-  p {
-    font-weight: 300;
-    font-size: 16px;
-  }
+$primary-color: #337ab7;
+$secondary-color: #5cb85c;
+$font-size-large: 24px;
+$margin-small: 10px;
+
+.presentation-title {
+  font-size: $font-size-large;
+  color: $primary-color;
+  margin-bottom: $margin-small;
 }
+
+.presentation-paragraph {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: $margin-small;
+}
+
