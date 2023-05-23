@@ -8,6 +8,9 @@ import { AppComponent } from './app.component';
 import { ProduitDetailComponent } from './components/produit-detail/produit-detail.component';
 import { ProduitCompactComponent } from './components/produit-compact/produit-compact.component';
 import { AllProduitComponent } from './components/all-produit/all-produit.component';
+import { InscriptionComponent } from './components/inscription/inscription.component';
+import { ConnexionComponent } from './components/connexion/connexion.component';
+import { AccueilComponent } from './components/accueil/accueil.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +18,9 @@ import { AllProduitComponent } from './components/all-produit/all-produit.compon
     ProduitDetailComponent,
     ProduitCompactComponent,
     AllProduitComponent,
+    InscriptionComponent,
+    ConnexionComponent,
+    AccueilComponent,
   ],
   imports: [
     BrowserModule,
