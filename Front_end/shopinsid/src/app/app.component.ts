@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +7,6 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AppComponent implements OnInit{
 
-  ngOnInit(){    
-  }
+  ngOnInit(){}
+
 }
