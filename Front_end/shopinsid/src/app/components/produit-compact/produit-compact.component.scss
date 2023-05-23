@@ -3,6 +3,11 @@ $secondary-color: #5cb85c;
 $font-size-large: 24px;
 $margin-small: 10px;
 
+.presentation-title {
+    font-size: $font-size-large;
+    color: $primary-color;
+    margin-bottom: $margin-small;
+}
 
 .presentation-button {
     padding: 10px 20px;
@@ -11,15 +16,19 @@ $margin-small: 10px;
     background-color: $secondary-color;
     border: none;
     border-radius: 5px;
-    &:active {
-        transform: translate(1px, 1px);
-        box-shadow: lightgray 0 0 5px;
-      }
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .presentation-image {
+    padding: 10px 20px;
     max-width: 100%;
     height: auto;
     margin-bottom: $margin-small;
-    display: flex;
+    display: block;
+    border-radius: 5px;
+    box-shadow: 0 0 5px lightgray;
+
+    &.small-image {
+        max-width: 300px; // Ajustez la valeur selon vos besoins
+    }
 }

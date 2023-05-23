@@ -1,6 +1,17 @@
 $secondary-color: #5cb85c;
 $margin-small: 10px;
 
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.product-details {
+    text-align: center;
+}
+
 .presentation-button {
     padding: 10px 20px;
     font-size: 16px;
@@ -8,26 +19,40 @@ $margin-small: 10px;
     background-color: $secondary-color;
     border: none;
     border-radius: 5px;
-    &:active {
-        transform: translate(1px, 1px);
-        box-shadow: lightgray 0 0 5px;
-      }
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: $margin-small;
 }
 
 .product-price {
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: #337ab7;
+    margin-bottom: $margin-small;
 }
 
 .product-description {
     font-size: 16px;
     color: #555;
     line-height: 1.4;
+    margin-bottom: $margin-small;
 }
+
 .presentation-image {
+    padding : 10px 20px;
     max-width: 100%;
     height: auto;
     margin-bottom: $margin-small;
-    display: flex;
+    display: block;
+    border-radius: 5px;
+    box-shadow: 0 0 5px lightgray;
+
+    &.small-image {
+        max-width: 450px; // Ajustez la valeur selon vos besoins
+    }
 }
