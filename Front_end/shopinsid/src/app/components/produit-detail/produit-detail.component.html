@@ -1,0 +1,7 @@
+<div *ngIf="produit">
+        <h2>{{produit.name}}</h2>
+        <img class="presentation-image" [src]="produit.imageUrl">
+        <h3 class="product-price">{{produit.price}}</h3>
+        <p class="product-description">{{produit.description}}</p>
+        <button class="presentation-button" (click)="redirectToPage('components/all-produit')">Retour</button>
+</div>
