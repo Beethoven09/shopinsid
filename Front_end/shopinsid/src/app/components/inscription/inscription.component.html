@@ -1,0 +1,30 @@
+<div>
+    <form>
+        <label for="username">Votre Nom d'utilisateur : </label>
+        <input type="text" id="username" name="username" placeholder="Choisissez votre nom" required>
+        <br />
+
+        <label for="password">Votre Mot de passe : </label>
+        <input type="password" id="password" name="password" placeholder="Choisissez votre mot de passe" required>
+        <br />
+
+        <label for="password">Confirmez votre Mot de passe : </label>
+        <input type="password" required>
+        <br />
+
+        <label for="naissance">Votre date de naissance : </label>
+        <input type="date" id="naissance" name="naissance" required>
+        <br />
+
+        <label for="mail">Votre email : </label>
+        <input type="email" id="mail" name="mail" placeholder="Saisissez votre email" required>
+        <br />
+
+        <label for="tel">Votre numéro de téléphone : </label>
+        <input type="text" id="tel" name="tel" placeholder="Ex: 0701020304">
+        <br />
+
+        <input type="submit" value="S'inscrire">
+        </form>
+    <button (click)="redirectToPage('accueil')">Annuler</button>
+</div>
