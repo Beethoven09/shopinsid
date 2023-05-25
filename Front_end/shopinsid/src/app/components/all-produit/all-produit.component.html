@@ -1,5 +1,6 @@
-<div class="container" *ngFor = "let produit of produits">
-    <div class="box">
-        <app-produit-compact [nom]="produit.name" [imageUrl]="produit.imageUrl" [id]="produit.id"></app-produit-compact>
+<div class="container">
+    <div class="box" *ngFor="let produit of produits">
+      <app-produit-compact [produit]="produit"></app-produit-compact>
     </div>
 </div>
+  

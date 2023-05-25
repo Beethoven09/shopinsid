@@ -1,24 +1,20 @@
-import { Component, Input, OnInit} from '@angular/core';
-import { Router} from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Produit } from 'src/app/models/produit.model';
 
 @Component({
   selector: 'app-produit-compact',
   templateUrl: './produit-compact.component.html',
   styleUrls: ['./produit-compact.component.scss']
 })
-export class ProduitCompactComponent implements OnInit{
-  @Input() nom!: string;
-  @Input() imageUrl!: string;
-  @Input() id!: number;
+export class ProduitCompactComponent implements OnInit {
+  @Input() produit!: Produit;
 
-  constructor(private router: Router)
-    { }
+  constructor(private router: Router) {}
 
-  /*Fonction qui renvoie vers une autre page */
-  redirectToPage(pageName : string) {
-    /*Ce qu'il faut écrire dans pageName se trouve dans les paths de app-routing.module*/
-    this.router.navigate([`${pageName}/${this.id}`]);
+  ngOnInit() {}
+
+  redirectToPage(pageName: string) {
+    this.router.navigate([`${pageName}/${this.produit.id}`]);
   }
-  ngOnInit(){}
-
 }
