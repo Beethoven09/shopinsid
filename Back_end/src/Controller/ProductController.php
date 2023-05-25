@@ -1,133 +1,87 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Produit;
+use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+
 
 class ProductController extends AbstractController
 {
-    private $productsFile = __DIR__ . "/products.json";
-    private function getProducts(): array
+   /**
+     * @Route("/products", name="get_all_products", methods={"GET"})
+     */
+    public function getAllProducts(ProduitRepository $produitRepository): JsonResponse
     {
-        $fileContent = file_get_contents($this->productsFile);
-        return json_decode($fileContent, true) ?: [];
+        $products = $produitRepository->findAll();
+
+        // Convertir les entités en tableau
+        $data = [];
+        foreach ($products as $product) {
+            $data[] = [
+                'id' => $product->getId(),
+                'name' => $product->getName(),
+                'price' => $product->getPrice(),
+                'description' => $product->getDescription(),
+                'imageUrl' => $product->getImageUrl()
+            ];
+        }
+        return new JsonResponse($data);
     }
 
-    private function saveProducts(array $products): void
-    {
-        $fileContent = json_encode($products);
-        file_put_contents($this->productsFile, $fileContent);
-    }
+
 
     /**
-     * @Route("/products", methods="GET")
+     * @Route("/products/{id}", methods="GET")
      */
-    public function getAllProducts(): Response
+    public function getProduct(Produit $produit): JsonResponse
     {
-        $products = $this->getProducts();
-        return new JsonResponse($products);
-    }
-
-    /** 
-     * @Route ("/products/{id}", methods="GET") 
-     */
-    public function getProduct($id): Response
-    {
-        $products = $this->getProducts();
-        $selectedProduct = null;
-        foreach ($products as $product) {
-            if ($product['id'] == $id) {
-                $selectedProduct = $product;
-                break;
-            }
-        }
-
-        if ($selectedProduct == null) {
-            return new JsonResponse(['error' => 'Produit non existant !'], 404);
-        } else {
-            return new JsonResponse($selectedProduct);
-        }
+        return new JsonResponse($produit);
     }
 
     /**
      * @Route("/products", methods="POST")
      */
-    public function createNewProduct(Request $request): JsonResponse
+    public function createNewProduct(Request $request, ProduitRepository $produitRepository): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
-        if (!isset($data['id']) || !isset($data['name']) || !isset($data['price'])) {
-            return new JsonResponse(['error' => 'Format incorrect']);
-        } else {
-            $newProduct = [
-                'id' => $data['id'],
-                'name' => $data['name'],
-                'price' => $data['price']
-            ];
+        $newProduct = new Produit();
+        $newProduct->setName($data['name'] ?? null);
+        $newProduct->setPrice($data['price'] ?? null);
+        $newProduct->setDescription($data['description'] ?? null);
+        $newProduct->setImageUrl($data['imageUrl'] ?? null);
 
-            $products = $this->getProducts();
-            $products[] = $newProduct;
-            $this->saveProducts($products);
+        $produitRepository->save($newProduct, true);
 
-            return new JsonResponse($newProduct, 201);
-        }
+        return new JsonResponse($newProduct, 201);
     }
 
     /**
      * @Route("/products/{id}", methods="DELETE")
      */
-    public function deleteProduct($id): JsonResponse
+    public function deleteProduct(Produit $produit, ProduitRepository $produitRepository): JsonResponse
     {
-        $products = $this->getProducts();
-        $selectedProductIndex = null;
-        foreach ($products as $index => $product) {
-            if ($product['id'] == $id) {
-                $selectedProductIndex = $index;
-                break;
-            }
-        }
+        $produitRepository->remove($produit, true);
 
-        if ($selectedProductIndex === null) {
-            return new JsonResponse(['error' => 'Produit non existant !'], 404);
-        } else {
-            unset($products[$selectedProductIndex]);
-            $this->saveProducts(array_values($products));
-            return new JsonResponse(['Status' => 'Produit supprimé avec succès']);
-        }
+        return new JsonResponse(['Status' => 'Produit supprimé avec succès']);
     }
 
     /**
      * @Route("/products/{id}", methods="PUT")
      */
-    public function alterProduct($id, Request $request): JsonResponse
+    public function alterProduct(Produit $produit, Request $request, ProduitRepository $produitRepository): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
-        $products = $this->getProducts();
-        $selectedProductIndex = null;
-        foreach ($products as $index => &$product) {
-            if ($product['id'] == $id) {
-                $selectedProductIndex = $index;
-                break;
-            }
-        }
+        $produit->setName($data['name'] ?? $produit->getName());
+        $produit->setPrice($data['price'] ?? $produit->getPrice());
+        $produitRepository->save($produit, true);
 
-        if ($selectedProductIndex === null) {
-            return new JsonResponse(['error' => 'Produit non existant !'], 404);
-        } else {
-            if (isset($data['name'])) {
-                $products[$selectedProductIndex]['name'] = $data['name'];
-            }
-            if (isset($data['price'])) {
-                $products[$selectedProductIndex]['price'] = $data['price'];
-            }
-
-            $this->saveProducts($products);
-
-            return new JsonResponse(['status' => 'Produit modifié avec succès']);
-        }
+        return new JsonResponse(['status' => 'Produit modifié avec succès']);
     }
 }
+

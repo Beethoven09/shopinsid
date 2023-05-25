@@ -7,6 +7,7 @@ import { ProduitDetailComponent} from "./components/produit-detail/produit-detai
 
 const routes: Routes = [
   /* Lien vers un autre component destination */
+  {path: '', redirectTo: 'components/all-produit', pathMatch: 'full'},
   {path: 'components/all-produit', component: AllProduitComponent},
   {path: 'components/produit-compact', component: ProduitCompactComponent},
   {path: 'components/produit-detail/:iden', component: ProduitDetailComponent}
