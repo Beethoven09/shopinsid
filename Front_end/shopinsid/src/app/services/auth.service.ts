@@ -7,13 +7,13 @@ import { SHA256 } from 'crypto-js';
   providedIn: 'root'
 })
 export class AuthService {
-  private connexionUrl = 'https://127.0.0.1:8000/connexion';
-  private InscriptionUrl = 'https://127.0.0.1:8000/connexion';
+  private connexionUrl = 'https://127.0.0.1:8004/login';
+  private InscriptionUrl = 'https://127.0.0.1:8004/login';
 
 
   constructor(private http: HttpClient) { }
 
-  //fonction pour se connecter
+  //fonction pour s'authentifier
   login(username: string, password: string): Observable<any> {
     const hashedPassword = SHA256(password).toString(); // Chiffrement du mot de passe
 
