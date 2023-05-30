@@ -25,7 +25,7 @@ export class ConnexionComponent implements OnInit {
 
   login() {
     let verif = true;
-    //verification que les champs sont bien remplis 
+    // Vérification que les champs sont bien remplis 
     if (this.connexionData.username === '' || this.connexionData.password === '') {
       verif = false;
       alert("Veuillez remplir tous les champs");
@@ -37,7 +37,7 @@ export class ConnexionComponent implements OnInit {
           if (response.success) {
             // Rediriger l'utilisateur vers la page d'accueil ou une autre page appropriée
             alert("Connexion réussie")
-            this.router.navigate(['accueil']);
+            this.router.navigate(['all-produit']);
           } else {
             // Afficher un message d'erreur pour indiquer que les informations d'identification sont incorrectes
             alert('Identifiants incorrects');
@@ -45,12 +45,9 @@ export class ConnexionComponent implements OnInit {
         },
         (error) => {
           // Gérer les erreurs de la requête HTTP
-          alert('Erreur lors de la requête de login'+ error);
-        }
-      );
+          alert( error.error.message);
+        
+        }    );
     }
   }
 }
-
-
-

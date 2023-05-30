@@ -1,6 +1,6 @@
 nelmio_cors:
     defaults:
-        allow_credentials: false
+        allow_credentials: true
         allow_origin: ['*']
         allow_headers: []
         allow_methods: []
@@ -11,6 +11,11 @@ nelmio_cors:
         forced_allow_origin_value: ~
     paths:
         '^/products': # Configurez ici le chemin de votre API
+            allow_origin: ['*']
+            allow_headers: ['*']
+            allow_methods: ['GET', 'POST', 'PUT', 'DELETE']
+            max_age: 3600
+        '^/login': # Configurez ici le chemin de votre API
             allow_origin: ['*']
             allow_headers: ['*']
             allow_methods: ['GET', 'POST', 'PUT', 'DELETE']
