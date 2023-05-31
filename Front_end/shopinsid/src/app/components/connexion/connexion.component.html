@@ -1,12 +1,13 @@
 <div>
-    <form>
-        <label for="username">Nom d'utilisateur : </label>
-        <input type="text" id="username" name="username" placeholder="Saisissez votre nom" required>
-        <br />
-        <label for="password">Mot de passe : </label>
-        <input type="password" id="password" name="password" placeholder="Saisissez votre mot de passe" required>
-        <br />
-        <input type="submit" value="Se connecter">
+    <form (ngSubmit)="login()">
+      <label for="username">Nom d'utilisateur :</label>
+      <input type="text" id="username" name="username" placeholder="Saisissez votre nom" [(ngModel)]="connexionData.username" required>
+      <br />
+      <label for="password">Mot de passe :</label>
+      <input type="password" id="password" name="password" placeholder="Saisissez votre mot de passe" [(ngModel)]="connexionData.password" required>
+      <br />
+      <input type="submit" value="Se connecter">
     </form>
     <button (click)="redirectToPage('accueil')">Retour</button>
 </div>
+  
