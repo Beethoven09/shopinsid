@@ -35,7 +35,7 @@
 ## **FONCTIONNALITÉS**
 
 > **Composant : All-produit** <br/>
-Composant contenant la liste des produits et appelle ``app-produit-compact`` pour afficher chaque produit et mode compact. Affiche uniquement en colonne et pas en ligne.
+Composant contenant la liste des produits et appelle ``app-produit-compact`` pour afficher chaque produit, et mode compact. Affiche uniquement en colonne et pas en ligne.
 
 > **Composant : Produit-compact** <br />
 Composant affichant les résumés du produit et ajoute un bouton cliquable "Détails" qui redirige vers une page ``produit-detail`` avec un identifiant.

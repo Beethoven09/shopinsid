@@ -15,6 +15,6 @@ export class ProduitCompactComponent implements OnInit {
   ngOnInit() {}
 
   redirectToPage(pageName: string) {
-    this.router.navigate([`${pageName}/${this.produit.id}`]);
+    this.router.navigate([`${pageName}`]);
   }
 }
