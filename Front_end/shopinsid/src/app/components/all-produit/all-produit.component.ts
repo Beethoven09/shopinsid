@@ -31,4 +31,9 @@ export class AllProduitComponent implements OnInit {
   prixPanier(): number {
     return this.panierService.prixPanier();
   }
+
+  ouvrirPanier(pageName: string) {
+    this.router.navigate([`/${pageName}`]);
+  }
+
 }

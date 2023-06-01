@@ -40,14 +40,12 @@ export class ProduitDetailComponent implements OnInit {
 
   ajouterAuPanier(produit: Produit, selectedQuantity: number) {
     this.panierService.ajouterAuPanier(produit, selectedQuantity);
-  }
-  
-  supprimerDuPanier(produit: Produit) {
-    this.panierService.supprimerDuPanier(produit);
+    alert("Produit ajouté au panier avec succés");
   }
 
-  produitDansPanier(produit: Produit): boolean {
-    return this.panierService.produitDansPanier(produit);
+  changePrixQuantite() : number{
+    let prix =  this.produit.price * this.selectedQuantity;
+    return parseFloat(prix.toFixed(2));
   }
-  
+
 }

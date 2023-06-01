@@ -30,8 +30,8 @@ export class PanierService {
     }
   }
 
-  getProduitsPanier(): Produit[] {
-    return this.panierItems.map(item => item.produit);
+  getProduitsPanier(): ProduitPanier[] {
+    return this.panierItems;
   }
 
   produitDansPanier(produit: Produit): boolean {

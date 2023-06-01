@@ -14,6 +14,7 @@ import { ConnexionComponent } from './components/connexion/connexion.component';
 import { AccueilComponent } from './components/accueil/accueil.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PanierComponent } from './components/panier/panier.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     InscriptionComponent,
     ConnexionComponent,
     AccueilComponent,
+    PanierComponent
   ],
   imports: [
     BrowserModule,

@@ -46,6 +46,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    margin-top: 10px;
   }
   
   label {
@@ -99,5 +100,9 @@
   
   .presentation-button:hover {
     background-color: #777;
+  }
+
+  #prix1article{
+    color: #898585;
   }
   
