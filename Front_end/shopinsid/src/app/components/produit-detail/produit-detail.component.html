@@ -1,9 +1,20 @@
 <div class="page-container">
     <div *ngIf="produit" class="product-details">
-        <h2 class="product-name">{{produit.name}}</h2>
+      <h2 class="product-name">{{produit.name}}</h2>
+      <div class="details-container">
         <img class="presentation-image small-image" [src]="produit.imageUrl">
-        <h3 class="product-price">{{produit.price}}</h3>
-        <p class="product-description">{{produit.description}}</p>
-        <button class="presentation-button" (click)="redirectToPage('all-produit')">Retour</button>
+        <div class="side-panel">
+            <h3 class="product-price"><span id="prix1article">Prix d'un article : </span> {{produit.price}}€</h3>          <div class="quantity-section">
+            <label for="quantity">Quantité :</label>
+            <input type="number" id="quantity" min="1" [(ngModel)]="selectedQuantity">
+          </div>
+          <h3 class="product-price"><span id="prix1article">Prix de la sélection : </span> {{changePrixQuantite()}}€</h3>
+          <button class="add-to-cart-button" (click)="ajouterAuPanier(produit, selectedQuantity)">Ajouter au panier</button>
+          <button class="buy-now-button">Acheter ce produit</button>
+        </div>
+      </div>
+      <p class="product-description">{{produit.description}}</p>
+      <button class="presentation-button" (click)="redirectToPage('all-produit')">Retour</button>
     </div>
-</div>
+  </div>
+  

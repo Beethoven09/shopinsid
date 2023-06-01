@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProduitService } from 'src/app/services/produit.service';
 import { Produit } from 'src/app/models/produit.model';
+import { PanierService } from 'src/app/services/panier.service';
 
 @Component({
   selector: 'app-produit-detail',
@@ -12,8 +13,9 @@ export class ProduitDetailComponent implements OnInit {
   id!: number;
   produit!: any;
   produits: Produit[] = [];
+  selectedQuantity: number = 1;
 
-  constructor(private router: Router, private route: ActivatedRoute,private produitService: ProduitService) {}
+  constructor(private router: Router, private route: ActivatedRoute,private produitService: ProduitService,private panierService:PanierService) {}
 
   ngOnInit(){
     /* on récupère l'id du produit */
@@ -34,4 +36,16 @@ export class ProduitDetailComponent implements OnInit {
   redirectToPage(pageName: string) {
     this.router.navigate([`${pageName}`]);
   }
+
+
+  ajouterAuPanier(produit: Produit, selectedQuantity: number) {
+    this.panierService.ajouterAuPanier(produit, selectedQuantity);
+    alert("Produit ajouté au panier avec succés");
+  }
+
+  changePrixQuantite() : number{
+    let prix =  this.produit.price * this.selectedQuantity;
+    return parseFloat(prix.toFixed(2));
+  }
+
 }

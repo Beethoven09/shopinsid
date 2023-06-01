@@ -1,0 +1,28 @@
+<div class="panier-container">
+    <h2 class="panier-title">Panier</h2>
+    <div *ngFor="let item of panierItems" class="panier-item">
+      <div class="panier-image">
+        <img [src]="item.produit.imageUrl" alt="Image du produit">
+      </div>
+      <div class="panier-details">
+        <h3 class="produit-name">{{ item.produit.name }}</h3>
+        <p class="produit-description">{{ item.produit.description }}</p>
+        <p class="produit-price">{{ item.produit.price }}€</p>
+        <div class="quantite-section">
+          <label for="quantite">Quantité :</label>
+          <input type="number" id="quantite" min="1" [(ngModel)]="item.quantite">
+        </div>
+      </div>
+      <div class="panier-subtotal">
+        <p class="subtotal-label">Sous-total :</p>
+        <p class="subtotal-value">{{ item.produit.price * item.quantite }}€</p>
+      </div>
+      <button class="supprimer-button" (click)="supprimerDuPanier(item.produit)">Supprimer</button>
+    </div>
+    <div class="panier-total">
+      <p class="total-label">Total :</p>
+      <p class="total-value">{{ calculerTotal() }}€</p>
+    </div>
+    <button class="commander-button" (click)="commander()">Passer la commande</button>
+  </div>
+  
