@@ -1,34 +1,43 @@
-$primary-color: #337ab7;
-$secondary-color: #5cb85c;
-$font-size-large: 24px;
-$margin-small: 10px;
-
-.presentation-title {
-    font-size: $font-size-large;
-    color: $primary-color;
-    margin-bottom: $margin-small;
-}
-
-.presentation-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #fff;
-    background-color: $secondary-color;
-    border: none;
-    border-radius: 5px;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.presentation-image {
-    padding: 10px 20px;
-    max-width: 100%;
+div {
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .presentation-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .presentation-image {
+    width: 250px;
     height: auto;
-    margin-bottom: $margin-small;
-    display: block;
-    border-radius: 5px;
-    box-shadow: 0 0 5px lightgray;
-
-    &.small-image {
-        max-width: 300px; // Ajustez la valeur selon vos besoins
-    }
-}
+    margin-bottom: 20px;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .presentation-button {
+    background-color: #2196f3;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .presentation-button:hover {
+    background-color: #0c7fd8;
+  }
+  
