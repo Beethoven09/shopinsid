@@ -1,12 +1,28 @@
-<div>
-    <!--Banderole supérieure-->
-    <div class="banner">
-        <h1>Bienvenue sur notre page d'accueil Shopinsid</h1>
-        <p>C'est un exemple de page d'accueil basique en utilisant Angular.</p>
-        <!--Boutons "inscription & connexion"-->
-        <div class="buttons">
-            <button class="btn" (click)="redirectToPage('inscription')">S'inscrire</button>
-            <button class="btn" (click)="redirectToPage('connexion')">Se connecter</button>
-        </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Accueil</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav ml-auto">
+     
+            <button class="btn"(click)="redirectToPage('inscription')">Inscription</button>        
+            <button class="btn"(click)="redirectToPage('connexion')">Connexion</button>         
+        
+        </ul>
+
+      </div>
     </div>
-</div>
+  </nav>
+  
+  <div class="bg-success p-5 rounded-lg m-3">
+    <h1 class="display-4">Shopinsid</h1>
+    <p class="lead">Bienvenue dans votre marketplace.</p>
+    <hr class="my-4">
+    <img src="assets/img.jpg" alt="">   
+  </div>
+
+
+
+
