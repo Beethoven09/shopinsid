@@ -7,8 +7,8 @@ import { SHA256 } from 'crypto-js';
   providedIn: 'root'
 })
 export class AuthService {
-  private connexionUrl = 'https://127.0.0.1:8001/login';
-  private InscriptionUrl = 'https://127.0.0.1:8000/login';
+  private connexionUrl = 'https://127.0.0.1:8000/login';
+  private InscriptionUrl = 'https://127.0.0.1:8000/register';
 
 
   constructor(private http: HttpClient) { }
@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   //fonction pour inscription
-  register(username: string, password: string, birthdate: string, email: string, tel: string): Observable<any> {
+  inscrire(username: string, password: string, birthdate: string, email: string, tel: string): Observable<any> {
     const hashedPassword = SHA256(password).toString(); // Chiffrement du mot de passe
 
     return this.http.post<any>(this.InscriptionUrl, { username, password: hashedPassword, birthdate, email, tel });

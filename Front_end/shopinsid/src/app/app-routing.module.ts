@@ -6,6 +6,7 @@ import { ProduitDetailComponent} from "./components/produit-detail/produit-detai
 import { InscriptionComponent } from "./components/inscription/inscription.component";
 import { ConnexionComponent } from "./components/connexion/connexion.component";
 import { AccueilComponent } from './components/accueil/accueil.component';
+import { PanierComponent } from './components/panier/panier.component';
 
 const routes: Routes = [
   /* Lien vers un autre component destination
@@ -22,8 +23,11 @@ const routes: Routes = [
   /* PAGE POUR UNE INSCRIPTION AU SITE */
   {path: 'inscription', component: InscriptionComponent},
   /* PAGE POUR UNE CONNEXION AU SITE */
-  {path: 'connexion', component: ConnexionComponent}
+  {path: 'connexion', component: ConnexionComponent},
+  /* PAGE POUR UNE ACCEDER AU PANIER */
+  {path: 'panier', component: PanierComponent}
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

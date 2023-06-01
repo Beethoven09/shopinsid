@@ -1,6 +1,23 @@
-<div class="container">
-    <div class="box" *ngFor="let produit of produits">
-      <app-produit-compact [produit]="produit"></app-produit-compact>
+<header>
+  <nav class="menu-bar">
+    <div class="search-bar">
+      <input type="text" placeholder="Rechercher...">
+      <button>Rechercher</button>
     </div>
+    <ul class="menu-items">
+      <li>
+        <button class="panier-button" (click)="ouvrirPanier('panier')">Panier</button>
+      </li>
+      
+      <li><a href="#" class="left-menu">Accueil</a></li>
+      <li><a href="#" class="left-menu">Contact</a></li>
+      <li><a href="#" class="left-menu">Déconnexion</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="box" *ngFor="let produit of produits">
+    <app-produit-compact [produit]="produit"></app-produit-compact>
+  </div>
 </div>
-  

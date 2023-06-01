@@ -1,13 +1,25 @@
-<div>
-    <form (ngSubmit)="login()">
-      <label for="username">Nom d'utilisateur :</label>
-      <input type="text" id="username" name="username" placeholder="Saisissez votre nom" [(ngModel)]="connexionData.username" required>
-      <br />
-      <label for="password">Mot de passe :</label>
-      <input type="password" id="password" name="password" placeholder="Saisissez votre mot de passe" [(ngModel)]="connexionData.password" required>
-      <br />
-      <input type="submit" value="Se connecter">
-    </form>
-    <button (click)="redirectToPage('accueil')">Retour</button>
-</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Revenir à l'accueil</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
   
+    </div>
+  </div>
+</nav>
+<div>
+  <form (ngSubmit)="login()">
+    <label for="username">Nom d'utilisateur :</label>
+    <input type="text" id="username" name="username" placeholder="Saisissez votre nom" [(ngModel)]="connexionData.username" required>
+    <br />
+    <label for="password">Mot de passe :</label>
+    <input type="password" id="password" name="password" placeholder="Saisissez votre mot de passe" [(ngModel)]="connexionData.password" required>
+    <br />
+    <input type="submit" value="Se connecter">
+  </form>
+  <button (click)="redirectToPage('accueil')">Retour</button>
+</div>
+
+

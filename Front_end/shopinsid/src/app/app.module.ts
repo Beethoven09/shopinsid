@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 /* IMPORT DES COMPONENTS */
 import { ProduitDetailComponent } from './components/produit-detail/produit-detail.component';
 import { ProduitCompactComponent } from './components/produit-compact/produit-compact.component';
@@ -13,6 +14,7 @@ import { ConnexionComponent } from './components/connexion/connexion.component';
 import { AccueilComponent } from './components/accueil/accueil.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PanierComponent } from './components/panier/panier.component';
 
 
 @NgModule({
@@ -24,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     InscriptionComponent,
     ConnexionComponent,
     AccueilComponent,
+    PanierComponent
   ],
   imports: [
     BrowserModule,
