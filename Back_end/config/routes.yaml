@@ -33,3 +33,8 @@ login:
     path: /login
     controller: App\Controller\UserController::login
     methods: POST 
+
+register:
+    path: /register
+    controller: App\Controller\UserController::register
+    methods: POST 
