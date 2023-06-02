@@ -68,7 +68,7 @@ Composant affichant le résumé de la liste de produits à acheter par l'utilisa
 
 ## **PROBLEMES DETECTES**
 
-    .
+    . Les données saisies ne sont pas récupérées lors de l'inscription (champs constamment vides).
 
 ## **PROBLEMES RESOLUS**
 
