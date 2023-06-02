@@ -7,7 +7,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./accueil.component.scss']
 })
 export class AccueilComponent implements OnInit{
-
+  /* données pour le menu déroulant */
+  category_list = [
+    { id: 1, name: "Jeux" },
+    { id: 2, name: "Lecture" },
+    { id: 3, name: "Cinéma"},
+    {id: 4, name: "Electroménager"},
+    {id: 5, name: "Jardinerie"},
+    {id: 6, name: "Bricolage"},
+  ];
+  
 
     constructor(private router: Router)
       { }

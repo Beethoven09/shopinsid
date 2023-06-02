@@ -11,33 +11,36 @@
     </div>
   </nav>
 <div>
+  <br/>
     <form (ngSubmit)="register()">
-      <label for="username">Votre Nom d'utilisateur : </label>
-      <input type="text" id="username" name="username" placeholder="Choisissez votre nom" [(ngModel)]="registerData.username" required>
-      <br />
-  
-      <label for="password">Votre Mot de passe : </label>
-      <input type="password" id="password" name="password" placeholder="Choisissez votre mot de passe" [(ngModel)]="registerData.password" required>
-      <br />
-  
-      <label for="confirmPassword">Confirmez votre Mot de passe : </label>
-      <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="registerData.confirm" required>
-      <br />
-  
-      <label for="birthdate">Votre date de naissance : </label>
-      <input type="date" id="birthdate" name="birthdate" [(ngModel)]="registerData.birthdate" required>
-      <br />
-  
-      <label for="email">Votre email : </label>
-      <input type="email" id="email" name="email" placeholder="Saisissez votre email" [(ngModel)]="registerData.mail" required>
-      <br />
-  
-      <label for="tel">Votre numéro de téléphone : </label>
-      <input type="text" id="tel" name="tel" placeholder="Ex: 0701020304" [(ngModel)]="registerData.tel">
-      <br />
-  
-      <input type="submit" value="inscrire">
-    </form>
+        <label for="username">* Votre Nom d'utilisateur : </label>
+        <input type="text" id="username" name="username" placeholder="Choisissez votre nom" [(ngModel)]="registerData.username" required>
+        <br />
+
+        <label for="password">* Votre Mot de passe : </label>
+        <input type="password" id="password" name="password" placeholder="Choisissez votre mot de passe" [(ngModel)]="registerData.password" required>
+        <br />
+
+        <label for="password">* Confirmez votre Mot de passe : </label>
+        <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="registerData.confirm" required>
+        <br />
+
+        <label for="naissance">* Votre date de naissance : </label>
+        <input type="date" id="birthdate" name="birthdate" [(ngModel)]="registerData.birthdate" required>
+        <br />
+
+        <label for="mail">* Votre email : </label>
+        <input type="email" id="email" name="email" placeholder="Saisissez votre email" [(ngModel)]="registerData.mail" required>
+        <br />
+
+        <label for="tel">Votre numéro de téléphone : </label>
+        <input type="text" id="tel" name="tel" placeholder="Ex: 0701020304" [(ngModel)]="registerData.tel">
+        <br />
+
+        <input type="submit" value="S'inscrire">
+        </form>
+    <small class="small">Les champs notés * sont obligatoires.</small>
+    <br/>
     <button (click)="redirectToPage('accueil')">Annuler</button>
   </div>
   

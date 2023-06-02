@@ -1,6 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Accueil</a>
+      <select name="choice">
+          <option selected>Choisir une catégorie</option>
+            <option value="1" class="btn"(click)="redirectToPage('all-produit')">produits</option>
+            <option value="3" class="btn"(click)="redirectToPage('all-produit')">Electroménager</option>
+            <option value="4" class="btn"(click)="redirectToPage('all-produit')">Lecture</option>
+            <option value="5" class="btn"(click)="redirectToPage('all-produit')">Audio</option>
+            <option value="6" class="btn"(click)="redirectToPage('all-produit')">Jeux</option>
+            <option value="7" class="btn"(click)="redirectToPage('all-produit')">Jouets</option>
+            <option value="8" class="btn"(click)="redirectToPage('all-produit')">Vêtements</option>
+            <option value="9" class="btn"(click)="redirectToPage('all-produit')">Jardin</option>
+            <option value="10" class="btn"(click)="redirectToPage('all-produit')">Bricolage</option>
+        </select>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -8,21 +20,18 @@
         <ul class="navbar-nav ml-auto">
      
             <button class="btn"(click)="redirectToPage('inscription')">Inscription</button>        
-            <button class="btn"(click)="redirectToPage('connexion')">Connexion</button>         
+            <button class="btn"(click)="redirectToPage('connexion')">Connexion</button>
         
         </ul>
-
       </div>
     </div>
   </nav>
-  
   <div class="bg-success p-5 rounded-lg m-3">
     <h1 class="display-4">Shopinsid</h1>
     <p class="lead">Bienvenue dans votre marketplace.</p>
     <hr class="my-4">
     <img src="assets/img.jpg" alt="">   
   </div>
-
 
 
 
