@@ -20,6 +20,7 @@ export class InscriptionComponent implements OnInit{
   };
 
   constructor(private router: Router, private authService: AuthService){}
+  ngOnInit(){}
 
   /*Fonction qui renvoie vers une autre page */
   redirectToPage(pageName : string) {
@@ -27,7 +28,6 @@ export class InscriptionComponent implements OnInit{
     this.router.navigate([`${pageName}`]);
   }
 
-  ngOnInit(){}
 
   register() {
     /* verif est une variable qui vérifie si les données sont valides avant d'envoyer la requête, par défaut elle est init à true */
@@ -59,20 +59,19 @@ export class InscriptionComponent implements OnInit{
       alert("email invalide");
     }
 
-    if (verif === true){
-        console.log("tests passed");    
-        this.authService.register(this.registerData.username, this.registerData.password, this.registerData.birthdate,
+    if (verif){
+          this.authService.inscrire(this.registerData.username, this.registerData.password, this.registerData.birthdate,
           this.registerData.mail, this.registerData.tel).subscribe(
           (response) => {
             if (response.success) {
               // Rediriger l'utilisateur vers la page d'accueil ou une autre page appropriée
               alert("Inscription réussie")
-              this.router.navigate(['accueil']);
+              this.router.navigate(['all-produit']);
           }
         },
         (error) => {
           // Gérer les erreurs de la requête HTTP
-          alert('Erreur lors de la requête de login'+ error);
+          alert('Erreur lors de la requête inscription'+ error);
         }
         );
     }
