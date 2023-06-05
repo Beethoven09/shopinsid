@@ -1,3 +1,4 @@
+import { Produit } from './../../models/produit.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -7,7 +8,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./accueil.component.scss']
 })
 export class AccueilComponent implements OnInit{
-
+  /* données pour le menu déroulant */
+  category_list = [
+    { id: 1, name: "Jeux" },
+    { id: 2, name: "Lecture" },
+    { id: 3, name: "Cinéma"},
+    {id: 4, name: "Electroménager"},
+    {id: 5, name: "Jardinerie"},
+    {id: 6, name: "Bricolage"},
+  ];
+  
 
     constructor(private router: Router)
       { }
@@ -19,4 +29,10 @@ export class AccueilComponent implements OnInit{
   
     ngOnInit(){    
     }
+    ngOptions = [3,6,1,4,2,10,7,5,9,8]
+    ngDropdown = this.ngOptions[1];
+
+     
 }
+ 
+  
