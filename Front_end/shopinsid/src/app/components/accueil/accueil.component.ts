@@ -1,3 +1,4 @@
+import { Produit } from './../../models/produit.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -28,4 +29,10 @@ export class AccueilComponent implements OnInit{
   
     ngOnInit(){    
     }
+    ngOptions = [3,6,1,4,2,10,7,5,9,8]
+    ngDropdown = this.ngOptions[1];
+
+     
 }
+ 
+  
