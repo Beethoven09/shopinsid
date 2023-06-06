@@ -10,14 +10,17 @@ import { InscriptionData } from 'src/app/models/inscription.model';
 })
 export class InscriptionComponent implements OnInit{
   /* Informations à l'inscription */
-  registerData: InscriptionData = {
-    username: '',
-    password: '',
-    confirm: '',
-    birthdate: '',
-    mail: '',
-    tel: ''
-  };
+registerData: InscriptionData = {
+  name: '',
+  password: '',
+  confirm: '',
+  birthdate: new Date('0000-00-00'),
+  mail: '',
+  tel: 0,
+  adresse: '',
+  languePreferee: ''
+};
+
 
   constructor(private router: Router, private authService: AuthService){}
   ngOnInit(){}
@@ -33,8 +36,9 @@ export class InscriptionComponent implements OnInit{
     /* verif est une variable qui vérifie si les données sont valides avant d'envoyer la requête, par défaut elle est init à true */
     let verif = true;
     /* On regarde si les champs obligatoires ne sont pas vides */
-    if (this.registerData.username === '' || this.registerData.password === '' || 
-        this.registerData.confirm ==='' || this.registerData.birthdate ==='' || this.registerData.mail ===''){
+    if (this.registerData.name === '' || this.registerData.password === '' ||
+    this.registerData.confirm === '' || !this.registerData.birthdate || this.registerData.mail === '' ||
+     this.registerData.tel === null || this.registerData.adresse === ''  || this.registerData.adresse === '') {
       verif = false;
       alert("vide");
     }
@@ -60,8 +64,8 @@ export class InscriptionComponent implements OnInit{
     }
 
     if (verif){
-          this.authService.inscrire(this.registerData.username, this.registerData.password, this.registerData.birthdate,
-          this.registerData.mail, this.registerData.tel).subscribe(
+          this.authService.inscrire(this.registerData.name, this.registerData.password, this.registerData.birthdate,
+          this.registerData.mail, this.registerData.tel, this.registerData.adresse, this.registerData.languePreferee).subscribe(
           (response) => {
             if (response.success) {
               // Rediriger l'utilisateur vers la page d'accueil ou une autre page appropriée

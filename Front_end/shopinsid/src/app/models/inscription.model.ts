@@ -1,8 +1,10 @@
 export interface InscriptionData {
-    username: string;
+    name: string;
     password: string;
     confirm: string;
-    birthdate: string;
+    birthdate: Date;
     mail: string;
-    tel: string;
+    tel: Number;
+    adresse: string;
+    languePreferee: string;
 }  

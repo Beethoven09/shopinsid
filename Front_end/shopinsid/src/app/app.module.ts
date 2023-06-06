@@ -4,6 +4,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from "@ng-select/ng-select";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
+
+
 
 /* IMPORT DES COMPONENTS */
 import { ProduitDetailComponent } from './components/produit-detail/produit-detail.component';
@@ -35,7 +38,7 @@ import { PanierComponent } from './components/panier/panier.component';
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

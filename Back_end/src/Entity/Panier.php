@@ -5,12 +5,12 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Produits;
-use App\Entity\Commandes;
+use App\Entity\Users;
 
 /**
  * Panier
  *
- * @ORM\Table(name="panier", indexes={@ORM\Index(name="CommandeID", columns={"CommandeID"}), @ORM\Index(name="ProduitID", columns={"ProduitID"})})
+ * @ORM\Table(name="panier", indexes={@ORM\Index(name="UserID", columns={"UserID"}), @ORM\Index(name="ProduitID", columns={"ProduitID"})})
  * @ORM\Entity(repositoryClass="App\Repository\PanierRepository")
  */
 class Panier
@@ -49,14 +49,14 @@ class Panier
     private $produitid;
 
     /**
-     * @var \Commandes
+     * @var \Users
      *
-     * @ORM\ManyToOne(targetEntity="Commandes")
+     * @ORM\ManyToOne(targetEntity="Users")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="CommandeID", referencedColumnName="ID")
+     *   @ORM\JoinColumn(name="UserID", referencedColumnName="ID")
      * })
      */
-    private $commandeid;
+    private $userid;
 
     public function getId(): ?int
     {
@@ -99,14 +99,14 @@ class Panier
         return $this;
     }
 
-    public function getCommandeid(): ?Commandes
+    public function getUserid(): ?Users
     {
-        return $this->commandeid;
+        return $this->userid;
     }
 
-    public function setCommandeid(?Commandes $commandeid): self
+    public function setUserid(?Users $userid): self
     {
-        $this->commandeid = $commandeid;
+        $this->userid = $userid;
 
         return $this;
     }

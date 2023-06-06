@@ -14,16 +14,16 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   //fonction pour s'authentifier
-  login(username: string, password: string): Observable<any> {
+  login(email: string, password: string): Observable<any> {
     const hashedPassword = SHA256(password).toString(); // Chiffrement du mot de passe
 
-    return this.http.post<any>(this.connexionUrl, { username, password: hashedPassword });
+    return this.http.post<any>(this.connexionUrl, { email, password: hashedPassword });
   }
 
   //fonction pour inscription
-  inscrire(username: string, password: string, birthdate: string, email: string, tel: string): Observable<any> {
+  inscrire(name: string, password: string, birthdate: Date, email: string, tel: Number, adresse: string, languePreferee: string): Observable<any> {
     const hashedPassword = SHA256(password).toString(); // Chiffrement du mot de passe
 
-    return this.http.post<any>(this.InscriptionUrl, { username, password: hashedPassword, birthdate, email, tel });
+    return this.http.post<any>(this.InscriptionUrl, { name, password: hashedPassword, birthdate, email, tel ,adresse, languePreferee});
   }
 }
