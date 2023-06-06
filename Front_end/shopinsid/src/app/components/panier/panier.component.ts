@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { PanierService } from 'src/app/services/panier.service';
-import { ProduitPanier } from 'src/app/models/produitPanier.model';
-import { Produit } from 'src/app/models/produit.model';
+
+interface PanierItem {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  imageUrl: string;
+  quantite: number;
+}
+
 
 @Component({
   selector: 'app-panier',
@@ -9,25 +17,29 @@ import { Produit } from 'src/app/models/produit.model';
   styleUrls: ['./panier.component.scss']
 })
 export class PanierComponent implements OnInit {
-  panierItems: ProduitPanier[] = [];
+  panierItems: PanierItem[] = [];
 
   constructor(private panierService: PanierService) { }
 
   ngOnInit() {
-    this.panierItems = this.panierService.getProduitsPanier();
+    this.getPanierItems();
   }
 
-  supprimerDuPanier(produit: Produit) {
-    this.panierService.supprimerDuPanier(produit);
-    this.panierItems = this.panierService.getProduitsPanier();
-    alert("Produit supprimé au panier avec succés");
+  private getPanierItems() {
+    this.panierService.getProduitsPanier().subscribe(items => {
+      this.panierItems = items;
+    });
   }
 
-  calculerTotal(): number {
-    return this.panierService.prixPanier();
+  supprimerDuPanier(id: string) {
+    this.panierService.supprimerDuPanier(id.toString()).subscribe(() => {
+      this.getPanierItems();
+      alert('Produit supprimé du panier avec succès');
+    });
   }
-
-  commander(){
-    alert("Commande passée avec succés")
+  
+  commander() {
+    // Logique de la commande
+    alert('Commande passée avec succès');
   }
 }

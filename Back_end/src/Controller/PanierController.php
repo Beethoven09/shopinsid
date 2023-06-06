@@ -44,6 +44,7 @@ class PanierController extends AbstractController
                 'price' => $ProductInfo->getPrix(),
                 'description' => $ProductInfo->getDescription(),
                 'imageUrl' => $ProductInfo->getImageUrl(),
+                'categorie' => $ProductInfo->getCategorieid(),
                 'quantite' => $product->getQuantite(),
             ];
         }
@@ -51,42 +52,41 @@ class PanierController extends AbstractController
     }
 
 
-/**
- * @Route("/panier/add", name="panier_add", methods={"POST"})
- */
-public function ajouterAuPanier(Request $request): Response
-{
-    // Récupérer les données envoyées dans la requête
-    $data = json_decode($request->getContent(), true);
+    /**
+     * @Route("/panier/add/", name="panier_add", methods={"POST"})
+     */
+    public function ajouterAuPanier(Request $request): Response
+    {
+        // Récupérer les données envoyées dans la requête
+        $data = json_decode($request->getContent(), true);
 
-    // Assurez-vous d'avoir les informations nécessaires pour ajouter au panier
-    $produitId = $data['id'];
-    $quantite = $data['quantite'];
+        $produitId = $data['id'];
+        $quantite = $data['quantite'];
 
-    // Récupérer le produit depuis la base de données
-    $produit = $this->entityManager->getRepository(Produits::class)->find($produitId);
+        // Récupérer le produit depuis la base de données
+        $produit = $this->entityManager->getRepository(Produits::class)->find($produitId);
 
-    // Rechercher si le produit existe déjà dans le panier
-    $panier = $this->entityManager->getRepository(Panier::class)->findOneBy(['produitid' => $produit->getId()]);
+        // Rechercher si le produit existe déjà dans le panier
+        $panier = $this->entityManager->getRepository(Panier::class)->findOneBy(['produitid' => $produit->getId()]);
 
-    if ($panier) {
-        // Si le produit existe déjà dans le panier, ajouter la quantité spécifiée
-        $panier->setQuantite($panier->getQuantite() + $quantite);
-    } else {
-        // Si le produit n'existe pas dans le panier, créer un nouvel enregistrement
-        $panier = new Panier();
-        $panier->setProduitid($produit);
-        $panier->setQuantite($quantite);
-        $panier->setPrixunitaire($produit->getPrix());
+        if ($panier) {
+            // Si le produit existe déjà dans le panier, ajouter la quantité spécifiée
+            $panier->setQuantite($panier->getQuantite() + $quantite);
+        } else {
+            // Si le produit n'existe pas dans le panier, créer un nouvel enregistrement
+            $panier = new Panier();
+            $panier->setProduitid($produit);
+            $panier->setQuantite($quantite);
+            $panier->setPrixunitaire($produit->getPrix());
 
-        // Sauvegarder le panier dans la base de données
-        $this->entityManager->persist($panier);
+            // Sauvegarder le panier dans la base de données
+            $this->entityManager->persist($panier);
+        }
+
+        $this->entityManager->flush();
+
+        return $this->json(['success' => true, 'message' => 'produit ajouté au panier!'], 200);
     }
-
-    $this->entityManager->flush();
-
-    return $this->json(['success' => true, 'message' => 'produit ajouté au panier!'], 200);
-}
 
     /**
      * @Route("/panier/delete/{id}", name="panier_delete", methods={"DELETE"})

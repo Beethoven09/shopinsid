@@ -53,3 +53,5 @@ panier_supprimer:
     path: /panier/delete/{id}
     controller: App\Controller\PanierController::supprimerDuPanier
     methods: DELETE
+
+    

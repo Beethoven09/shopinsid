@@ -27,13 +27,6 @@ export class AllProduitComponent implements OnInit {
     );
   }
 
-  getNombreProduitsPanier(): number {
-    return this.panierService.getNombreProduitsPanier();
-  }
-  prixPanier(): number {
-    return this.panierService.prixPanier();
-  }
-
   ouvrirPanier(pageName: string) {
     this.router.navigate([`/${pageName}`]);
   }

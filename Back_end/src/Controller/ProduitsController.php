@@ -60,6 +60,8 @@ class ProduitsController extends AbstractController
         $newProduct->setPrix($data['price'] ?? null);
         $newProduct->setDescription($data['description'] ?? null);
         $newProduct->setImageUrl($data['imageUrl'] ?? null);
+        $newProduct->setCategorieid($data['categorie'] ?? null);
+    
 
         $produitsRepository->save($newProduct, true);
 
@@ -85,6 +87,10 @@ class ProduitsController extends AbstractController
 
         $produit->setNomduproduit($data['name'] ?? $produit->getNomduproduit());
         $produit->setPrix($data['price'] ?? $produit->getPrix());
+        $produit->setPrix($data['categorie'] ?? $produit->getCategorieid());
+        $produit->setPrix($data['description'] ?? $produit->getDescription());
+
+
         $produitsRepository->save($produit, true);
 
         return new JsonResponse(['status' => 'Produit modifié avec succès']);
