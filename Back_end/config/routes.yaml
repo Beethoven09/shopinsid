@@ -27,10 +27,13 @@ product_deletion:
 product_modification:
     path: /products/{id}
     controller: App\Controller\ProduitController::alterProduct
+    controller: App\Controller\ProduitController::alterProduct
     methods: PUT
 
 login:
     path: /login
+    controller: App\Controller\UsersController::login
+    methods: POST
     controller: App\Controller\UsersController::login
     methods: POST
 
