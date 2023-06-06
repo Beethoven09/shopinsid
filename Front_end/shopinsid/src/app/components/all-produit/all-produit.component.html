@@ -18,6 +18,15 @@
 
 <div class="container">
   <div class="box" *ngFor="let produit of produits">
-    <app-produit-compact [produit]="produit"></app-produit-compact>
+    <!-- Si une catégorie a été sélectionnée-->
+    <div *ngIf="id; else PrintAll">
+      <div *ngIf="id === 'produit.category'">
+        <app-produit-compact [produit]="produit"></app-produit-compact>
+      </div>
+    </div>
+    <!-- Sinon on affiche tous les produits-->
+    <ng-template #PrintAll>
+      <app-produit-compact [produit]="produit"></app-produit-compact>
+    </ng-template>
   </div>
 </div>
