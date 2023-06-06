@@ -8,7 +8,7 @@ import { ProduitPanier } from '../models/produitPanier.model';
   providedIn: 'root'
 })
 export class PanierService {
-  private apiUrl = 'https://127.0.0.1:8007'; // Remplacez par l'URL de votre API
+  private apiUrl = 'https://127.0.0.1:8008'; // Remplacez par l'URL de votre API
 
   constructor(private http: HttpClient) {}
 
