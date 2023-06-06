@@ -24,6 +24,6 @@ export class AuthService {
   inscrire(name: string, password: string, birthdate: Date, email: string, tel: Number, adresse: string, languePreferee: string): Observable<any> {
     const hashedPassword = SHA256(password).toString(); // Chiffrement du mot de passe
 
-    return this.http.post<any>(this.InscriptionUrl, { name, password: hashedPassword, birthdate, email, tel, adresse, languePreferee});
+    return this.http.post<any>(this.InscriptionUrl, { name, password: hashedPassword, birthdate, email, tel ,adresse, languePreferee});
   }
 }

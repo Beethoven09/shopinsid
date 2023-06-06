@@ -38,7 +38,7 @@ registerData: InscriptionData = {
     /* On regarde si les champs obligatoires ne sont pas vides */
     if (this.registerData.name === '' || this.registerData.password === '' ||
     this.registerData.confirm === '' || !this.registerData.birthdate || this.registerData.mail === '' ||
-    this.registerData.adresse === '' || this.registerData.tel === null || this.registerData.adresse === '') {
+     this.registerData.tel === null || this.registerData.adresse === ''  || this.registerData.adresse === '') {
       verif = false;
       alert("vide");
     }
