@@ -43,7 +43,7 @@
 ## **FONCTIONNALITÉS**
 
 > **Composant : All-produit** <br/>
-Composant contenant la liste des produits et appelle ``app-produit-compact`` pour afficher chaque produit, et mode compact. Affiche uniquement en colonne et pas en ligne.
+Composant contenant la liste des produits et appelle ``app-produit-compact`` pour afficher chaque produit, et mode compact. Affiche uniquement en colonne et pas en ligne. Le filtrage des produits par catégorie est désormais disponible.
 
 > **Composant : Produit-compact** <br />
 Composant affichant les résumés du produit et ajoute un bouton cliquable "Détails" qui redirige vers une page ``produit-detail`` avec un identifiant.
@@ -52,7 +52,7 @@ Composant affichant les résumés du produit et ajoute un bouton cliquable "Dét
 Composant affichant, selon l'identifiant reçu, le bon produit en détails (nom, image, prix, description). Possibilité de retour en arrière avec le bouton cliquable "Retour".
 
 > **Composant : Accueil** <br />
-Composant affichant la page d'accueil lorsque l'on arrive sur le site. Possibilité de cliquer sur les boutons ``s'inscrire`` et de ``se connecter`` qui redirigent vers la page d'inscription ou de connexion. Choix de la catégorie disponible.
+Composant affichant la page d'accueil lorsque l'on arrive sur le site. Possibilité de cliquer sur les boutons ``s'inscrire`` et de ``se connecter`` qui redirigent vers la page d'inscription ou de connexion. Choix de la catégorie disponible et redirection vers la page de produits de la catégorie correspondante.
 
 > **Composant : Inscription** <br />
 Composant servant à recruter des informations de l'utilisateur pour y inscrire un nouveau compte sur le site. Les vérifications sur les champs de saisies sont opérationnelles et l'inscription s'effectue correctement vers la base de données.
@@ -68,13 +68,15 @@ Composant affichant le résumé de la liste de produits à acheter par l'utilisa
 
 ## **PROBLEMES DETECTES**
 
-    . Les données saisies ne sont pas récupérées lors de l'inscription (champs constamment vides).
+    . Connexion impossible à la base de données pour des raisons de sécurité. (Requête refusée).
 
 ## **PROBLEMES RESOLUS**
 
     . Les mêmes produits apparaissent 2 fois lorsque l'on revient sur la page des produits. (Suppression de la balise <app-all-produit> dans le fichier "app.component.html").
 
     . Les données lors d'une connexion ne sont pas chiffrées dans l'URL de la page.
+
+    . Les données saisies ne sont pas récupérées lors de l'inscription (champs constamment vides) (Ajout d'une option dans la balise form).
 
 
 <br />
@@ -139,7 +141,7 @@ Composant affichant le résumé de la liste de produits à acheter par l'utilisa
     ],
     "scripts": [
         "node_modules/jquery/dist/jquery.min.js",           // jquery here
-        "node_modules/bootstrap/dist/js/bootstrap.min.js"   //bootsrap here
+        "node_modules/bootstrap/dist/js/bootstrap.min.js"   //bootstrap here
     ]
     },
     ...
@@ -154,5 +156,22 @@ import { NgSelectModule } from "@ng-select/ng-select";
 
 ## **EXECUTER LE PROJET ANGULAR**
 
-Ouvrez un terminal à la racine du projet angular et tappez la commande suivante :
-**``ng serve``**.
+Ouvrez un terminal à la racine du **projet angular** et tappez la commande suivante :
+**`ng serve`**.
+
+<br />
+
+## **METTRE A JOUR SON DEPOT GIT**
+
+Voici la liste des commandes git importantes pour le projet :
+> **`git pull`** : met à jour le dépôt.
+
+> **`git add .`** : Ajoute toutes les modifications apportées.
+
+> **`git commit -m "<message>"`** : Apporte un commentaire sur les modifications effectuées.
+
+> **`git push`** : Met à jour votre dépot avec les modifications apportées localement.
+
+> **`git status`** : Consulte l'état de votre dépôt git.
+
+> **`git checkout <branche>`** : change de branche.
