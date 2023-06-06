@@ -5,15 +5,13 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarColor01">
-
-
       </div>
     </div>
   </nav>
 <div>
     <form (ngSubmit)="register()">
-      <label for="username">Votre Nom d'utilisateur : </label>
-      <input type="text" id="username" name="username" placeholder="Choisissez votre nom" [(ngModel)]="registerData.username" required>
+      <label for="name">Votre Nom : </label>
+      <input type="text" id="name" name="name" placeholder="Choisissez votre nom" [(ngModel)]="registerData.name" required>
       <br />
   
       <label for="password">Votre Mot de passe : </label>
@@ -35,8 +33,19 @@
       <label for="tel">Votre numéro de téléphone : </label>
       <input type="text" id="tel" name="tel" placeholder="Ex: 0701020304" [(ngModel)]="registerData.tel">
       <br />
-  
-      <input type="submit" value="inscrire">
+
+      <label for="adresse">Votre adresse : </label>
+      <input type="text" id="adresse" name="adresse" placeholder="N°, Rue, Code Postal" [(ngModel)]="registerData.adresse">
+      <br />
+
+      <label for="languePreferee">Langue préférée :</label>
+        <select id="languePreferee" name="languePreferee" [(ngModel)]="registerData.languePreferee">
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+        </select>
+        
+      <input type="submit" value="inscription">
     </form>
     <button (click)="redirectToPage('accueil')">Annuler</button>
   </div>

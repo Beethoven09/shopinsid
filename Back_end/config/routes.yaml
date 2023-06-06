@@ -19,22 +19,39 @@ product_creation:
     controller: App\Controller\ProductController::createNewProduct
     methods: POST
 
-product_deletion : 
+product_deletion:
     path: /products/{id}
     controller: App\Controller\ProductController::deleteProduct
     methods: DELETE
 
-product_modification :
+product_modification:
     path: /products/{id}
-    controller: App\Controller\ProductController::alterProduct
+    controller: App\Controller\ProduitController::alterProduct
     methods: PUT
 
 login:
     path: /login
-    controller: App\Controller\UserController::login
-    methods: POST 
+    controller: App\Controller\UsersController::login
+    methods: POST
 
 register:
     path: /register
-    controller: App\Controller\UserController::register
-    methods: POST 
+    controller: App\Controller\UsersController::register
+    methods: POST
+
+panier_getAllPanierItems:
+    path: /panier
+    controller: App\Controller\PanierController::getAllPanierItems
+    methods: GET
+
+panier_ajouter:
+    path: /panier/add
+    controller: App\Controller\PanierController::ajouterAuPanier
+    methods: POST
+
+panier_supprimer:
+    path: /panier/delete/{id}
+    controller: App\Controller\PanierController::supprimerDuPanier
+    methods: DELETE
+
+    
