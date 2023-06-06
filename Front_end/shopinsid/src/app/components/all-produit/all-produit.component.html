@@ -1,4 +1,4 @@
-<header>
+<!--<header>
   <nav class="menu-bar">
     <div class="search-bar">
       <input type="text" placeholder="Rechercher...">
@@ -18,15 +18,67 @@
 
 <div class="container">
   <div class="box" *ngFor="let produit of produits">
-    <!-- Si une catégorie a été sélectionnée-->
     <div *ngIf="id; else PrintAll">
       <div *ngIf="id === 'produit.category'">
         <app-produit-compact [produit]="produit"></app-produit-compact>
       </div>
     </div>
-    <!-- Sinon on affiche tous les produits-->
     <ng-template #PrintAll>
       <app-produit-compact [produit]="produit"></app-produit-compact>
     </ng-template>
   </div>
+</div>-->
+
+<header>
+  <nav class="menu-bar">
+    <div class="search-bar">
+      <input type="text" placeholder="Rechercher..." [(ngModel)]="recherche" (keydown)="onKeyDown($event)" (input)="updateSuggestions()"> 
+      <select [(ngModel)]="categorieSelectionnee">
+        <option value="">Toutes les catégories</option>
+        <option value="Collection">Collection</option>
+        <option value="Gaming">Gaming</option>
+        <option value="Musique">Musique</option>
+        <option value="Véhicule">Véhicule</option>
+
+      </select>
+      
+      <button (click)="rechercherBouton()">Rechercher</button>
+
+      <div class="suggestions" *ngIf="suggestions.length > 0">
+        <ul>
+          <li *ngFor="let suggestion of suggestions; let i = index" 
+              [ngClass]="{ 'selected': i === selectedSuggestionIndex }"
+              (click)="selectSuggestion(suggestion)">
+            {{ suggestion.name}}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <ul class="menu-items">
+      <li class="panier-icon">
+        <img src="https://img.icons8.com/?size=96&id=9FW4lJeBwcwu&format=png" alt="Panier">
+      </li>
+      <li><a (click)="afficheTousProduits()" class="left-menu">Accueil</a></li>
+      <li><a href="#" class="left-menu">Contact</a></li>
+      <li><a href="#" class="left-menu">Déconnexion</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="box" *ngFor="let produit of produits" [class.hide]="categorieSelectionnee !== '' && produit.categorie !== categorieSelectionnee">
+    <ng-container *ngIf="afficherTousProduits || produit === produitTrouve">
+      <app-produit-compact [produit]="produit"></app-produit-compact>
+    </ng-container>
+  </div>
 </div>
+
+
+<!--<div class="container">
+  <div class="box" *ngFor="let produit of produits">
+    <h3>{{ produit.name }}</h3>
+    <p>{{ produit.price }}</p>
+    <p>Catégorie : {{ produit.categorie }}</p>
+  </div>
+</div>-->
+

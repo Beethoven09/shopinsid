@@ -4,5 +4,8 @@ export interface Produit {
     price: number;
     description: string;
     imageUrl: string;
-    category: string;
+    rechercheBarre : number;
+    categorie : string;
+    quantite : number;
 } 
+
