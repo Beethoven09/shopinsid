@@ -31,10 +31,27 @@ product_modification :
 
 login:
     path: /login
-    controller: App\Controller\UserController::login
-    methods: POST 
+    controller: App\Controller\UsersController::login
+    methods: POST
 
 register:
     path: /register
-    controller: App\Controller\UserController::register
+    controller: App\Controller\UsersController::register
     methods: POST 
+
+
+    # config/routes.yaml
+panier_ajouter:
+    path: /panier/ajouter
+    controller: App\Controller\PanierController::ajouterProduit
+    methods: POST
+
+panier_supprimer:
+    path: /panier/supprimer
+    controller: App\Controller\PanierController::supprimerProduit
+    methods: POST
+
+panier_verifier:
+    path: /panier/verifier
+    controller: App\Controller\PanierController::verifierPanier
+    methods: GET
