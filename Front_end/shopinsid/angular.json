@@ -40,6 +40,9 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/shopinsid",
+            "allowedCommonJsDependencies": [
+              "crypto-js"
+            ],
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -55,7 +58,10 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {

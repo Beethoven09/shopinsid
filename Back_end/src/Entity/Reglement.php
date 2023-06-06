@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Commandes;
 
@@ -9,7 +10,8 @@ use App\Entity\Commandes;
  * Reglement
  *
  * @ORM\Table(name="reglement", indexes={@ORM\Index(name="CommandeID", columns={"CommandeID"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ReglementRepository")
+ * 
  */
 class Reglement
 {
@@ -34,17 +36,17 @@ class Reglement
      *
      * @ORM\Column(name="DateReglement", type="datetime", nullable=true)
      */
-    private $dateReglement;
+    private $datereglement;
 
     /**
-     * @var \App\Entity\Commandes|null
+     * @var \Commandes
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Commandes")
+     * @ORM\ManyToOne(targetEntity="Commandes")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="CommandeID", referencedColumnName="ID")
      * })
      */
-    private $commande;
+    private $commandeid;
 
     public function getId(): ?int
     {
@@ -59,28 +61,31 @@ class Reglement
     public function setMontant(?string $montant): self
     {
         $this->montant = $montant;
+
         return $this;
     }
 
-    public function getDateReglement(): ?\DateTimeInterface
+    public function getDatereglement(): ?\DateTimeInterface
     {
-        return $this->dateReglement;
+        return $this->datereglement;
     }
 
-    public function setDateReglement(?\DateTimeInterface $dateReglement): self
+    public function setDatereglement(?\DateTimeInterface $datereglement): self
     {
-        $this->dateReglement = $dateReglement;
+        $this->datereglement = $datereglement;
+
         return $this;
     }
 
-    public function getCommande(): ?Commandes
+    public function getCommandeid(): ?Commandes
     {
-        return $this->commande;
+        return $this->commandeid;
     }
 
-    public function setCommande(?Commandes $commande): self
+    public function setCommandeid(?Commandes $commandeid): self
     {
-        $this->commande = $commande;
+        $this->commandeid = $commandeid;
+
         return $this;
     }
 }

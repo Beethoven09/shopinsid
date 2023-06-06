@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Users
  *
  * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="Email", columns={"Email"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
  */
 class Users
 {
@@ -90,6 +91,7 @@ class Users
     public function setNom(?string $nom): self
     {
         $this->nom = $nom;
+
         return $this;
     }
 
@@ -101,6 +103,7 @@ class Users
     public function setPrenom(?string $prenom): self
     {
         $this->prenom = $prenom;
+
         return $this;
     }
 
@@ -112,28 +115,31 @@ class Users
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
         return $this;
     }
 
-    public function getMotDePasse(): ?string
+    public function getMotdepasse(): ?string
     {
         return $this->motdepasse;
     }
 
-    public function setMotDePasse(?string $motdepasse): self
+    public function setMotdepasse(?string $motdepasse): self
     {
         $this->motdepasse = $motdepasse;
+
         return $this;
     }
 
-    public function getLanguePreferee(): ?string
+    public function getLanguepreferee(): ?string
     {
         return $this->languepreferee;
     }
 
-    public function setLanguePreferee(?string $languepreferee): self
+    public function setLanguepreferee(?string $languepreferee): self
     {
         $this->languepreferee = $languepreferee;
+
         return $this;
     }
 
@@ -145,6 +151,7 @@ class Users
     public function setAdresse(?string $adresse): self
     {
         $this->adresse = $adresse;
+
         return $this;
     }
 
@@ -156,17 +163,19 @@ class Users
     public function setTel(?int $tel): self
     {
         $this->tel = $tel;
+
         return $this;
     }
 
-    public function getDateDeNaissance(): ?\DateTime
+    public function getDatedenaissance(): ?\DateTimeInterface
     {
         return $this->datedenaissance;
     }
 
-    public function setDateDeNaissance(?\DateTime $datedenaissance): self
+    public function setDatedenaissance(?\DateTimeInterface $datedenaissance): self
     {
         $this->datedenaissance = $datedenaissance;
+
         return $this;
     }
 }

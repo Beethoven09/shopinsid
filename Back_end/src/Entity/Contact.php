@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Users;
 
@@ -9,7 +10,7 @@ use App\Entity\Users;
  * Contact
  *
  * @ORM\Table(name="contact", indexes={@ORM\Index(name="UsersID", columns={"UsersID"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\Contactepository")
  */
 class Contact
 {
@@ -51,14 +52,14 @@ class Contact
     private $datemessage;
 
     /**
-     * @var \Users|null
+     * @var \Users
      *
      * @ORM\ManyToOne(targetEntity="Users")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="UsersID", referencedColumnName="ID")
      * })
      */
-    private $users;
+    private $usersid;
 
     public function getId(): ?int
     {
@@ -73,6 +74,7 @@ class Contact
     public function setNom(?string $nom): self
     {
         $this->nom = $nom;
+
         return $this;
     }
 
@@ -84,6 +86,7 @@ class Contact
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -95,28 +98,31 @@ class Contact
     public function setMessage(?string $message): self
     {
         $this->message = $message;
+
         return $this;
     }
 
-    public function getDateMessage(): ?\DateTimeInterface
+    public function getDatemessage(): ?\DateTimeInterface
     {
         return $this->datemessage;
     }
 
-    public function setDateMessage(?\DateTimeInterface $datemessage): self
+    public function setDatemessage(?\DateTimeInterface $datemessage): self
     {
         $this->datemessage = $datemessage;
+
         return $this;
     }
 
-    public function getUsers(): ?Users
+    public function getUsersid(): ?Users
     {
-        return $this->users;
+        return $this->usersid;
     }
 
-    public function setUsers(?Users $users): self
+    public function setUsersid(?Users $usersid): self
     {
-        $this->users = $users;
+        $this->usersid = $usersid;
+
         return $this;
     }
 }

@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Users;
+use  App\Entity\Users;
 
 /**
  * Commandes
  *
  * @ORM\Table(name="commandes", indexes={@ORM\Index(name="UsersID", columns={"UsersID"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\CommandesRepository")
  */
 class Commandes
 {
@@ -37,28 +38,29 @@ class Commandes
     private $total;
 
     /**
-     * @var \Users|null
+     * @var \Users
      *
      * @ORM\ManyToOne(targetEntity="Users")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="UsersID", referencedColumnName="ID")
      * })
      */
-    private $users;
+    private $usersid;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDateCommande(): ?\DateTimeInterface
+    public function getDatecommande(): ?\DateTimeInterface
     {
         return $this->datecommande;
     }
 
-    public function setDateCommande(?\DateTimeInterface $datecommande): self
+    public function setDatecommande(?\DateTimeInterface $datecommande): self
     {
         $this->datecommande = $datecommande;
+
         return $this;
     }
 
@@ -70,17 +72,19 @@ class Commandes
     public function setTotal(?string $total): self
     {
         $this->total = $total;
+
         return $this;
     }
 
-    public function getUsers(): ?Users
+    public function getUsersid(): ?Users
     {
-        return $this->users;
+        return $this->usersid;
     }
 
-    public function setUsers(?Users $users): self
+    public function setUsersid(?Users $usersid): self
     {
-        $this->users = $users;
+        $this->usersid = $usersid;
+
         return $this;
     }
 }

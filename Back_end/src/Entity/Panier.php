@@ -2,15 +2,16 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Produits;
-use App\Entity\Users;
+use App\Entity\Commandes;
 
 /**
  * Panier
  *
- * @ORM\Table(name="panier", indexes={@ORM\Index(name="UserID", columns={"UserID"}), @ORM\Index(name="ProduitID", columns={"ProduitID"})})
- * @ORM\Entity
+ * @ORM\Table(name="panier", indexes={@ORM\Index(name="CommandeID", columns={"CommandeID"}), @ORM\Index(name="ProduitID", columns={"ProduitID"})})
+ * @ORM\Entity(repositoryClass="App\Repository\PanierRepository")
  */
 class Panier
 {
@@ -35,28 +36,27 @@ class Panier
      *
      * @ORM\Column(name="PrixUnitaire", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $prixUnitaire;
+    private $prixunitaire;
 
     /**
-     * @var \App\Entity\Users
+     * @var \Produits
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="UserID", referencedColumnName="ID")
-     * })
-     */
-    private $user;
-
-    /**
-     * @var \App\Entity\Produits
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Produits")
+     * @ORM\ManyToOne(targetEntity="Produits")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ProduitID", referencedColumnName="ID")
      * })
      */
-    private $produit;
+    private $produitid;
 
+    /**
+     * @var \Commandes
+     *
+     * @ORM\ManyToOne(targetEntity="Commandes")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="CommandeID", referencedColumnName="ID")
+     * })
+     */
+    private $commandeid;
 
     public function getId(): ?int
     {
@@ -75,38 +75,38 @@ class Panier
         return $this;
     }
 
-    public function getPrixUnitaire(): ?string
+    public function getPrixunitaire(): ?string
     {
-        return $this->prixUnitaire;
+        return $this->prixunitaire;
     }
 
-    public function setPrixUnitaire(?string $prixUnitaire): self
+    public function setPrixunitaire(?string $prixunitaire): self
     {
-        $this->prixUnitaire = $prixUnitaire;
+        $this->prixunitaire = $prixunitaire;
 
         return $this;
     }
 
-    public function getUser(): ?Users
+    public function getProduitid(): ?Produits
     {
-        return $this->user;
+        return $this->produitid;
     }
 
-    public function setUser(?Users $user): self
+    public function setProduitid(?Produits $produitid): self
     {
-        $this->user = $user;
+        $this->produitid = $produitid;
 
         return $this;
     }
 
-    public function getProduit(): ?Produits
+    public function getCommandeid(): ?Commandes
     {
-        return $this->produit;
+        return $this->commandeid;
     }
 
-    public function setProduit(?Produits $produit): self
+    public function setCommandeid(?Commandes $commandeid): self
     {
-        $this->produit = $produit;
+        $this->commandeid = $commandeid;
 
         return $this;
     }

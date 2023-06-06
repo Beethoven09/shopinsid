@@ -18,6 +18,8 @@ const routes: Routes = [
   {path: 'accueil', component: AccueilComponent},
   /* PAGE DES PRODUITS */
   {path: 'all-produit', component: AllProduitComponent},
+  /*PAGE DES PRODUITS PAR CATEGORIE*/
+  {path: 'all-produit/:cate', component: AllProduitComponent},
   /* PAGE D'UN PRODUIT EN PARTICULIER */
   {path: 'produit-detail/:iden', component: ProduitDetailComponent},
   /* PAGE POUR UNE INSCRIPTION AU SITE */

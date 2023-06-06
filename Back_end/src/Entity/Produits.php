@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Categories;
 use App\Entity\Users;
@@ -10,7 +11,7 @@ use App\Entity\Users;
  * Produits
  *
  * @ORM\Table(name="produits", indexes={@ORM\Index(name="UsersID", columns={"UsersID"}), @ORM\Index(name="CategorieID", columns={"CategorieID"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ProduitsRepository")
  */
 class Produits
 {
@@ -28,7 +29,7 @@ class Produits
      *
      * @ORM\Column(name="NomDuProduit", type="string", length=100, nullable=true)
      */
-    private $nomDuProduit;
+    private $nomduproduit;
 
     /**
      * @var string|null
@@ -45,45 +46,46 @@ class Produits
     private $prix;
 
     /**
-     * @var string|null
+     * @var \Categories
      *
-     * @ORM\Column(name="ImageUrl", type="text", length=65535, nullable=true)
-     */
-    private $imageUrl;
-
-    /**
-     * @var \App\Entity\Users
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="UsersID", referencedColumnName="ID")
-     * })
-     */
-    private $usersId;
-
-    /**
-     * @var \App\Entity\Categories
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Categories")
+     * @ORM\ManyToOne(targetEntity="Categories")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="CategorieID", referencedColumnName="ID")
      * })
      */
-    private $categorieId;
+    private $categorieid;
+
+    /**
+     * @var \Users
+     *
+     * @ORM\ManyToOne(targetEntity="Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="UsersID", referencedColumnName="ID")
+     * })
+     */
+    private $usersid;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="ImageUrl", type="text", length=65535, nullable=true)
+     */
+    private $imageurl;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNomDuProduit(): ?string
+    public function getNomduproduit(): ?string
     {
-        return $this->nomDuProduit;
+        return $this->nomduproduit;
     }
 
-    public function setNomDuProduit(?string $nomDuProduit): self
+    public function setNomduproduit(?string $nomduproduit): self
     {
-        $this->nomDuProduit = $nomDuProduit;
+        $this->nomduproduit = $nomduproduit;
+
         return $this;
     }
 
@@ -95,6 +97,7 @@ class Produits
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -106,39 +109,42 @@ class Produits
     public function setPrix(?string $prix): self
     {
         $this->prix = $prix;
+
         return $this;
     }
 
-    public function getImageUrl(): ?string
+    public function getCategorieid(): ?Categories
     {
-        return $this->imageUrl;
+        return $this->categorieid;
     }
 
-    public function setImageUrl(?string $imageUrl): self
+    public function setCategorieid(?Categories $categorieid): self
     {
-        $this->imageUrl = $imageUrl;
+        $this->categorieid = $categorieid;
+
         return $this;
     }
 
-    public function getUsersId(): ?Users
+    public function getUsersid(): ?Users
     {
-        return $this->usersId;
+        return $this->usersid;
     }
 
-    public function setUsersId(?Users $usersId): self
+    public function setUsersid(?Users $usersid): self
     {
-        $this->usersId = $usersId;
+        $this->usersid = $usersid;
+
         return $this;
     }
-
-    public function getCategorieId(): ?Categories
+    public function getImageUrl(): ?String
     {
-        return $this->categorieId;
+        return $this->imageurl;
     }
 
-    public function setCategorieId(?Categories $categorieId): self
+    public function setImageUrl(?String $imageURl): self
     {
-        $this->categorieId = $categorieId;
+        $this->imageurl = $imageURl;
+
         return $this;
     }
 }
