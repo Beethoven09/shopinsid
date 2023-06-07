@@ -3,55 +3,43 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
-
 products_list:
     path: /products
     controller: App\Controller\ProductController::getAllProducts
     methods: GET
-
 product_selection:
     path: /products/{id}
     controller: App\Controller\ProductController::getProduct
     methods: GET
-
 product_creation:
     path: /products
     controller: App\Controller\ProductController::createNewProduct
     methods: POST
-
 product_deletion:
     path: /products/{id}
     controller: App\Controller\ProductController::deleteProduct
     methods: DELETE
-
 product_modification:
     path: /products/{id}
     controller: App\Controller\ProduitController::alterProduct
     methods: PUT
-
 login:
     path: /login
     controller: App\Controller\UsersController::login
     methods: POST
-
 register:
     path: /register
     controller: App\Controller\UsersController::register
     methods: POST
-
 panier_getAllPanierItems:
     path: /panier
     controller: App\Controller\PanierController::getAllPanierItems
     methods: GET
-
 panier_ajouter:
     path: /panier/add
     controller: App\Controller\PanierController::ajouterAuPanier
     methods: POST
-
 panier_supprimer:
     path: /panier/delete/{id}
     controller: App\Controller\PanierController::supprimerDuPanier
     methods: DELETE
-
-    
