@@ -10,7 +10,7 @@
           <input type="number" id="quantity" min="1" [(ngModel)]="selectedQuantity">
         </div>
         <h3 class="product-price"><span id="prix1article">Prix de la sélection : </span>{{ changePrixQuantite() }}€</h3>
-        <button class="add-to-cart-button" (click)="ajouterAuPanier(produit, selectedQuantity)">Ajouter au panier</button>
+        <button class="add-to-cart-button" (click)="ajouterAuPanier()">Ajouter au panier</button>
         <button class="buy-now-button">Acheter ce produit</button>
       </div>
     </div>

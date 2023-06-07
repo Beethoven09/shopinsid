@@ -68,7 +68,7 @@ Composant affichant le résumé de la liste de produits à acheter par l'utilisa
 
 ## **PROBLEMES DETECTES**
 
-    . Connexion impossible à la base de données pour des raisons de sécurité. (Requête refusée).
+    . Connexion impossible à la base de données pour des raisons de sécurité. ( Requête refusée ).
 
 ## **PROBLEMES RESOLUS**
 
