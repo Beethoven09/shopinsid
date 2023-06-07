@@ -9,6 +9,7 @@ import { ProduitPanier } from '../models/produitPanier.model';
 })
 export class PanierService {
   private apiUrl = 'https://127.0.0.1:8000'; // Remplacez par l'URL de votre API
+  panierItems: ProduitPanier[] = []; //Ajouter avec //
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +23,25 @@ export class PanierService {
     
   getProduitsPanier(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/panier`);
+  }
+
+  //
+  produitDansPanier(produit: Produit): boolean {
+    return this.panierItems.some(item => item.produit.id === produit.id);
+  }
+
+  getNombreProduitsPanier(): number {
+    return this.panierItems.length;
+  }
+
+  prixPanier(): number {
+    let total = 0;
+
+    for (const item of this.panierItems) {
+      total += item.produit.price * item.quantite;
+    }
+
+    return parseFloat(total.toFixed(2));
   }
   
 
