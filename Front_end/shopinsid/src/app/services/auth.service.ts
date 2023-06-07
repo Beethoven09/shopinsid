@@ -9,6 +9,7 @@ import { SHA256 } from 'crypto-js';
 export class AuthService {
   private connexionUrl = 'https://127.0.0.1:8000/login';
   private InscriptionUrl = 'https://127.0.0.1:8000/register';
+  private secretKey = 'votre_clé_secrète';
 
 
   constructor(private http: HttpClient) { }

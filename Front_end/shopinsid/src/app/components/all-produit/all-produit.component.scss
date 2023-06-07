@@ -64,5 +64,32 @@ font-weight: bold;
     height: 24px;
     margin-right: 5px;
   }
+
+  //Style pour la barre de suggestion de recherche
+.suggestions {
+  position: absolute;
+  background-color: #fff;
+  border: 5px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1;
+  width: 20%;
+  font-weight: bold;
+}
+
+.suggestions ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.suggestions li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestions li:hover {
+  background-color: #f4f4f4;
+}
   
 
