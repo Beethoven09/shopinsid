@@ -110,6 +110,4 @@ class Panier
 
         return $this;
     }
-
-
 }

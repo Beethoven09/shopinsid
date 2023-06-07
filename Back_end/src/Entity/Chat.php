@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Users;
 
@@ -10,7 +9,7 @@ use App\Entity\Users;
  * Chat
  *
  * @ORM\Table(name="chat", indexes={@ORM\Index(name="UsersID", columns={"UsersID"})})
- * @ORM\Entity(repositoryClass="App\Repository\ChatRepository")
+ * @ORM\Entity
  */
 class Chat
 {
@@ -38,14 +37,14 @@ class Chat
     private $datemessage;
 
     /**
-     * @var \Users
+     * @var \Users|null
      *
      * @ORM\ManyToOne(targetEntity="Users")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="UsersID", referencedColumnName="ID")
      * })
      */
-    private $usersid;
+    private $users;
 
     public function getId(): ?int
     {
@@ -60,33 +59,28 @@ class Chat
     public function setMessage(?string $message): self
     {
         $this->message = $message;
-
         return $this;
     }
 
-    public function getDatemessage(): ?\DateTimeInterface
+    public function getDateMessage(): ?\DateTimeInterface
     {
         return $this->datemessage;
     }
 
-    public function setDatemessage(?\DateTimeInterface $datemessage): self
+    public function setDateMessage(?\DateTimeInterface $datemessage): self
     {
         $this->datemessage = $datemessage;
-
         return $this;
     }
 
-    public function getUsersid(): ?Users
+    public function getUsers(): ?Users
     {
-        return $this->usersid;
+        return $this->users;
     }
 
-    public function setUsersid(?Users $usersid): self
+    public function setUsers(?Users $users): self
     {
-        $this->usersid = $usersid;
-
+        $this->users = $users;
         return $this;
     }
-
-
 }

@@ -2,17 +2,13 @@
 
 namespace App\Entity;
 
-
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Produits;
-use App\Entity\Users;
 
 /**
  * Avis
  *
  * @ORM\Table(name="avis", indexes={@ORM\Index(name="UsersID", columns={"UsersID"}), @ORM\Index(name="ProduitID", columns={"ProduitID"})})
- * @ORM\Entity(repositoryClass="App\Repository\AvisRepository")
+ * @ORM\Entity
  */
 class Avis
 {
@@ -40,17 +36,7 @@ class Avis
     private $commentaire;
 
     /**
-     * @var \Produits
-     *
-     * @ORM\ManyToOne(targetEntity="Produits")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ProduitID", referencedColumnName="ID")
-     * })
-     */
-    private $produitid;
-
-    /**
-     * @var \Users
+     * @var Users|null
      *
      * @ORM\ManyToOne(targetEntity="Users")
      * @ORM\JoinColumns({
@@ -58,6 +44,16 @@ class Avis
      * })
      */
     private $usersid;
+
+    /**
+     * @var Produits|null
+     *
+     * @ORM\ManyToOne(targetEntity="Produits")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ProduitID", referencedColumnName="ID")
+     * })
+     */
+    private $produitid;
 
     public function getId(): ?int
     {
@@ -72,7 +68,6 @@ class Avis
     public function setNote(?int $note): self
     {
         $this->note = $note;
-
         return $this;
     }
 
@@ -84,19 +79,6 @@ class Avis
     public function setCommentaire(?string $commentaire): self
     {
         $this->commentaire = $commentaire;
-
-        return $this;
-    }
-
-    public function getProduitid(): ?Produits
-    {
-        return $this->produitid;
-    }
-
-    public function setProduitid(?Produits $produitid): self
-    {
-        $this->produitid = $produitid;
-
         return $this;
     }
 
@@ -108,9 +90,17 @@ class Avis
     public function setUsersid(?Users $usersid): self
     {
         $this->usersid = $usersid;
-
         return $this;
     }
 
+    public function getProduitid(): ?Produits
+    {
+        return $this->produitid;
+    }
 
+    public function setProduitid(?Produits $produitid): self
+    {
+        $this->produitid = $produitid;
+        return $this;
+    }
 }

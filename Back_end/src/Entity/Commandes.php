@@ -87,6 +87,4 @@ class Commandes
 
         return $this;
     }
-
-
 }
