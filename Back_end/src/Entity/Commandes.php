@@ -102,6 +102,4 @@ class Commandes
 
         return $this;
     }
-
-
 }
