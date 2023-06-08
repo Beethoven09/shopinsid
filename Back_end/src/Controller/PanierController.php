@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Panier;
-use App\Entity\Produits;
 use App\Repository\PanierRepository;
+use App\Entity\Produits;
 use App\Repository\ProduitsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,6 +61,7 @@ class PanierController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $produitId = $data['id'];
+        //return new JsonResponse($produitId);
         $quantite = $data['quantite'];
 
         // Récupérer le produit depuis la base de données
@@ -75,9 +76,8 @@ class PanierController extends AbstractController
         } else {
             // Si le produit n'existe pas dans le panier, créer un nouvel enregistrement
             $panier = new Panier();
-            $panier->setProduitid($produit);
+            $panier->setProduitid($produit->getId());
             $panier->setQuantite($quantite);
-            $panier->setPrixunitaire($produit->getPrix());
 
             // Sauvegarder le panier dans la base de données
             $this->entityManager->persist($panier);

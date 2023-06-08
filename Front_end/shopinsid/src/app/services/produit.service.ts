@@ -26,12 +26,13 @@ export class ProduitService {
     getProductsFromDatabase(): Observable<Produit[]> {
         return this.http.get<Produit[]>(this.apiUrl).pipe(
           map((products: Produit[]) => {
-            for (const product of products) {
+            /*for (const product of products) {
               product.rechercheBarre = 0;
-            }
+            }*/
             return products;
           })
         );
       }
+      
       
 }

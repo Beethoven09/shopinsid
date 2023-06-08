@@ -4,12 +4,11 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use  App\Entity\Users;
 
 /**
  * Commandes
  *
- * @ORM\Table(name="commandes", indexes={@ORM\Index(name="UsersID", columns={"UsersID"})})
+ * @ORM\Table(name="commandes")
  * @ORM\Entity(repositoryClass="App\Repository\CommandesRepository")
  */
 class Commandes
@@ -31,21 +30,25 @@ class Commandes
     private $datecommande;
 
     /**
-     * @var string|null
+     * @var int
      *
-     * @ORM\Column(name="Total", type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(name="idUser", type="integer", nullable=false)
      */
-    private $total;
+    private $iduser;
 
     /**
-     * @var \Users
+     * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="UsersID", referencedColumnName="ID")
-     * })
+     * @ORM\Column(name="idProduit", type="integer", nullable=false)
      */
-    private $usersid;
+    private $idproduit;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="Quantite", type="integer", nullable=false)
+     */
+    private $quantite;
 
     public function getId(): ?int
     {
@@ -64,26 +67,38 @@ class Commandes
         return $this;
     }
 
-    public function getTotal(): ?string
+    public function getIduser(): ?int
     {
-        return $this->total;
+        return $this->iduser;
     }
 
-    public function setTotal(?string $total): self
+    public function setIduser(int $iduser): self
     {
-        $this->total = $total;
+        $this->iduser = $iduser;
 
         return $this;
     }
 
-    public function getUsersid(): ?Users
+    public function getIdproduit(): ?int
     {
-        return $this->usersid;
+        return $this->idproduit;
     }
 
-    public function setUsersid(?Users $usersid): self
+    public function setIdproduit(int $idproduit): self
     {
-        $this->usersid = $usersid;
+        $this->idproduit = $idproduit;
+
+        return $this;
+    }
+
+    public function getQuantite(): ?int
+    {
+        return $this->quantite;
+    }
+
+    public function setQuantite(int $quantite): self
+    {
+        $this->quantite = $quantite;
 
         return $this;
     }

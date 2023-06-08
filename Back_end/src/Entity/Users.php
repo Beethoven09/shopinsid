@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Users
  *
- * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="Email", columns={"Email"})})
+ * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
  */
 class Users
@@ -35,13 +35,6 @@ class Users
      * @ORM\Column(name="Prenom", type="string", length=100, nullable=true)
      */
     private $prenom;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="Email", type="string", length=100, nullable=true)
-     */
-    private $email;
 
     /**
      * @var string|null
@@ -78,6 +71,13 @@ class Users
      */
     private $datedenaissance;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=100, nullable=false)
+     */
+    private $email;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,18 +103,6 @@ class Users
     public function setPrenom(?string $prenom): self
     {
         $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(?string $email): self
-    {
-        $this->email = $email;
 
         return $this;
     }
@@ -175,6 +163,18 @@ class Users
     public function setDatedenaissance(?\DateTimeInterface $datedenaissance): self
     {
         $this->datedenaissance = $datedenaissance;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

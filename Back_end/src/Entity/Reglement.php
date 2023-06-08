@@ -4,14 +4,12 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Commandes;
 
 /**
  * Reglement
  *
- * @ORM\Table(name="reglement", indexes={@ORM\Index(name="CommandeID", columns={"CommandeID"})})
+ * @ORM\Table(name="reglement")
  * @ORM\Entity(repositoryClass="App\Repository\ReglementRepository")
- * 
  */
 class Reglement
 {
@@ -23,6 +21,13 @@ class Reglement
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="CommandeID", type="integer", nullable=true)
+     */
+    private $commandeid;
 
     /**
      * @var string|null
@@ -38,19 +43,21 @@ class Reglement
      */
     private $datereglement;
 
-    /**
-     * @var \Commandes
-     *
-     * @ORM\ManyToOne(targetEntity="Commandes")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="CommandeID", referencedColumnName="ID")
-     * })
-     */
-    private $commandeid;
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getCommandeid(): ?int
+    {
+        return $this->commandeid;
+    }
+
+    public function setCommandeid(?int $commandeid): self
+    {
+        $this->commandeid = $commandeid;
+
+        return $this;
     }
 
     public function getMontant(): ?string
@@ -77,15 +84,5 @@ class Reglement
         return $this;
     }
 
-    public function getCommandeid(): ?Commandes
-    {
-        return $this->commandeid;
-    }
 
-    public function setCommandeid(?Commandes $commandeid): self
-    {
-        $this->commandeid = $commandeid;
-
-        return $this;
-    }
 }

@@ -2,16 +2,13 @@
 
 namespace App\Entity;
 
-
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Produits;
-use App\Entity\Users;
 
 /**
  * Avis
  *
- * @ORM\Table(name="avis", indexes={@ORM\Index(name="UsersID", columns={"UsersID"}), @ORM\Index(name="ProduitID", columns={"ProduitID"})})
+ * @ORM\Table(name="avis")
  * @ORM\Entity(repositoryClass="App\Repository\AvisRepository")
  */
 class Avis
@@ -28,6 +25,20 @@ class Avis
     /**
      * @var int|null
      *
+     * @ORM\Column(name="UsersID", type="integer", nullable=true)
+     */
+    private $usersid;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="ProduitID", type="integer", nullable=true)
+     */
+    private $produitid;
+
+    /**
+     * @var int|null
+     *
      * @ORM\Column(name="Note", type="integer", nullable=true)
      */
     private $note;
@@ -39,29 +50,33 @@ class Avis
      */
     private $commentaire;
 
-    /**
-     * @var \Produits
-     *
-     * @ORM\ManyToOne(targetEntity="Produits")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ProduitID", referencedColumnName="ID")
-     * })
-     */
-    private $produitid;
-
-    /**
-     * @var \Users
-     *
-     * @ORM\ManyToOne(targetEntity="Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="UsersID", referencedColumnName="ID")
-     * })
-     */
-    private $usersid;
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUsersid(): ?int
+    {
+        return $this->usersid;
+    }
+
+    public function setUsersid(?int $usersid): self
+    {
+        $this->usersid = $usersid;
+
+        return $this;
+    }
+
+    public function getProduitid(): ?int
+    {
+        return $this->produitid;
+    }
+
+    public function setProduitid(?int $produitid): self
+    {
+        $this->produitid = $produitid;
+
+        return $this;
     }
 
     public function getNote(): ?int
@@ -84,30 +99,6 @@ class Avis
     public function setCommentaire(?string $commentaire): self
     {
         $this->commentaire = $commentaire;
-
-        return $this;
-    }
-
-    public function getProduitid(): ?Produits
-    {
-        return $this->produitid;
-    }
-
-    public function setProduitid(?Produits $produitid): self
-    {
-        $this->produitid = $produitid;
-
-        return $this;
-    }
-
-    public function getUsersid(): ?Users
-    {
-        return $this->usersid;
-    }
-
-    public function setUsersid(?Users $usersid): self
-    {
-        $this->usersid = $usersid;
 
         return $this;
     }
