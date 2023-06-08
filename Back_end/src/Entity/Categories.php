@@ -43,4 +43,6 @@ class Categories
         $this->nomcategorie = $nomcategorie;
         return $this;
     }
+
+
 }

@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Users;
 
 /**
  * Chat
  *
- * @ORM\Table(name="chat", indexes={@ORM\Index(name="UsersID", columns={"UsersID"})})
- * @ORM\Entity
+ * @ORM\Table(name="chat")
+ * @ORM\Entity(repositoryClass="App\Repository\ChatRepository")
  */
 class Chat
 {
@@ -21,6 +21,13 @@ class Chat
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="UsersID", type="integer", nullable=true)
+     */
+    private $usersid;
 
     /**
      * @var string|null
@@ -36,19 +43,21 @@ class Chat
      */
     private $datemessage;
 
-    /**
-     * @var \Users|null
-     *
-     * @ORM\ManyToOne(targetEntity="Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="UsersID", referencedColumnName="ID")
-     * })
-     */
-    private $users;
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUsersid(): ?int
+    {
+        return $this->usersid;
+    }
+
+    public function setUsersid(?int $usersid): self
+    {
+        $this->usersid = $usersid;
+
+        return $this;
     }
 
     public function getMessage(): ?string
@@ -59,28 +68,21 @@ class Chat
     public function setMessage(?string $message): self
     {
         $this->message = $message;
+
         return $this;
     }
 
-    public function getDateMessage(): ?\DateTimeInterface
+    public function getDatemessage(): ?\DateTimeInterface
     {
         return $this->datemessage;
     }
 
-    public function setDateMessage(?\DateTimeInterface $datemessage): self
+    public function setDatemessage(?\DateTimeInterface $datemessage): self
     {
         $this->datemessage = $datemessage;
+
         return $this;
     }
 
-    public function getUsers(): ?Users
-    {
-        return $this->users;
-    }
 
-    public function setUsers(?Users $users): self
-    {
-        $this->users = $users;
-        return $this;
-    }
 }

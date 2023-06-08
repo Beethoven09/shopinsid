@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Avis
  *
- * @ORM\Table(name="avis", indexes={@ORM\Index(name="UsersID", columns={"UsersID"}), @ORM\Index(name="ProduitID", columns={"ProduitID"})})
- * @ORM\Entity
+ * @ORM\Table(name="avis")
+ * @ORM\Entity(repositoryClass="App\Repository\AvisRepository")
  */
 class Avis
 {
@@ -24,6 +25,20 @@ class Avis
     /**
      * @var int|null
      *
+     * @ORM\Column(name="UsersID", type="integer", nullable=true)
+     */
+    private $usersid;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="ProduitID", type="integer", nullable=true)
+     */
+    private $produitid;
+
+    /**
+     * @var int|null
+     *
      * @ORM\Column(name="Note", type="integer", nullable=true)
      */
     private $note;
@@ -35,29 +50,33 @@ class Avis
      */
     private $commentaire;
 
-    /**
-     * @var Users|null
-     *
-     * @ORM\ManyToOne(targetEntity="Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="UsersID", referencedColumnName="ID")
-     * })
-     */
-    private $usersid;
-
-    /**
-     * @var Produits|null
-     *
-     * @ORM\ManyToOne(targetEntity="Produits")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ProduitID", referencedColumnName="ID")
-     * })
-     */
-    private $produitid;
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUsersid(): ?int
+    {
+        return $this->usersid;
+    }
+
+    public function setUsersid(?int $usersid): self
+    {
+        $this->usersid = $usersid;
+
+        return $this;
+    }
+
+    public function getProduitid(): ?int
+    {
+        return $this->produitid;
+    }
+
+    public function setProduitid(?int $produitid): self
+    {
+        $this->produitid = $produitid;
+
+        return $this;
     }
 
     public function getNote(): ?int
@@ -68,6 +87,7 @@ class Avis
     public function setNote(?int $note): self
     {
         $this->note = $note;
+
         return $this;
     }
 
@@ -79,28 +99,9 @@ class Avis
     public function setCommentaire(?string $commentaire): self
     {
         $this->commentaire = $commentaire;
+
         return $this;
     }
 
-    public function getUsersid(): ?Users
-    {
-        return $this->usersid;
-    }
 
-    public function setUsersid(?Users $usersid): self
-    {
-        $this->usersid = $usersid;
-        return $this;
-    }
-
-    public function getProduitid(): ?Produits
-    {
-        return $this->produitid;
-    }
-
-    public function setProduitid(?Produits $produitid): self
-    {
-        $this->produitid = $produitid;
-        return $this;
-    }
 }

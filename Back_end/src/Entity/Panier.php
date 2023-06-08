@@ -2,15 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Produits;
-use App\Entity\Users;
 
 /**
  * Panier
  *
- * @ORM\Table(name="panier", indexes={@ORM\Index(name="UserID", columns={"UserID"}), @ORM\Index(name="ProduitID", columns={"ProduitID"})})
+ * @ORM\Table(name="panier")
  * @ORM\Entity(repositoryClass="App\Repository\PanierRepository")
  */
 class Panier
@@ -27,40 +24,51 @@ class Panier
     /**
      * @var int|null
      *
-     * @ORM\Column(name="Quantite", type="integer", nullable=true)
+     * @ORM\Column(name="UserID", type="integer", nullable=true)
      */
-    private $quantite;
+    private $userid;
 
     /**
-     * @var string|null
+     * @var int|null
      *
-     * @ORM\Column(name="PrixUnitaire", type="decimal", precision=10, scale=2, nullable=true)
-     */
-    private $prixunitaire;
-
-    /**
-     * @var \Produits
-     *
-     * @ORM\ManyToOne(targetEntity="Produits")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ProduitID", referencedColumnName="ID")
-     * })
+     * @ORM\Column(name="ProduitID", type="integer", nullable=true)
      */
     private $produitid;
 
     /**
-     * @var \Users
+     * @var int|null
      *
-     * @ORM\ManyToOne(targetEntity="Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="UserID", referencedColumnName="ID")
-     * })
+     * @ORM\Column(name="Quantite", type="integer", nullable=true)
      */
-    private $userid;
+    private $quantite;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUserid(): ?int
+    {
+        return $this->userid;
+    }
+
+    public function setUserid(?int $userid): self
+    {
+        $this->userid = $userid;
+
+        return $this;
+    }
+
+    public function getProduitid(): ?int
+    {
+        return $this->produitid;
+    }
+
+    public function setProduitid(?int $produitid): self
+    {
+        $this->produitid = $produitid;
+
+        return $this;
     }
 
     public function getQuantite(): ?int
@@ -75,39 +83,5 @@ class Panier
         return $this;
     }
 
-    public function getPrixunitaire(): ?string
-    {
-        return $this->prixunitaire;
-    }
 
-    public function setPrixunitaire(?string $prixunitaire): self
-    {
-        $this->prixunitaire = $prixunitaire;
-
-        return $this;
-    }
-
-    public function getProduitid(): ?Produits
-    {
-        return $this->produitid;
-    }
-
-    public function setProduitid(?Produits $produitid): self
-    {
-        $this->produitid = $produitid;
-
-        return $this;
-    }
-
-    public function getUserid(): ?Users
-    {
-        return $this->userid;
-    }
-
-    public function setUserid(?Users $userid): self
-    {
-        $this->userid = $userid;
-
-        return $this;
-    }
 }

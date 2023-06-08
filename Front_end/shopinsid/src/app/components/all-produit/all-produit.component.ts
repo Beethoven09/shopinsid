@@ -32,7 +32,8 @@ export class AllProduitComponent implements OnInit {
       }
     );
   }
-
+  
+  
   ouvrirPanier(pageName: string) {
     this.router.navigate([`/${pageName}`]);
   }
@@ -45,9 +46,6 @@ export class AllProduitComponent implements OnInit {
     return this.panierService.prixPanier();
   }
 
-  /*rechercherProduit(): void {
-    this.produitTrouve = this.produits.find(produit => produit.name === this.recherche) || null;
-  }*/
   rechercherProduit(): void {
     this.produitTrouve = this.produits.find(produit => produit.name.toLowerCase() === this.recherche.toLowerCase()) || null;
     if (this.produitTrouve === null) {
@@ -58,34 +56,15 @@ export class AllProduitComponent implements OnInit {
 
   //affcihe initialment tous les produits avant la recherche
   afficherTousProduits : boolean = true;
-  /*rechercherBouton(): void {
-    this.afficherTousProduits = true;
-    this.produitTrouve = null;
-  
-    if (this.categorieSelectionnee !== '') {
-      // Filtrer les produits par catégorie
-      this.produits = this.produits.filter(produit => produit.categorie === this.categorieSelectionnee);
-    }
-  
-    const produitsTrouves = this.tousLesProduits.filter(produit => produit.name.toLowerCase().startsWith(this.recherche.toLowerCase()));
-    if (produitsTrouves.length > 0) {
-      this.produits = produitsTrouves;
-    } else {
-      this.produits = this.tousLesProduits; // Restaure tous les produits
-      alert('Aucun produit trouvé');
-      this.recherche = ''; // Vide la barre de recherche
-    }
-  
-    this.suggestions = []; // Réinitialise les suggestions après la recherche
-  }*/
   rechercherBouton(): void {
     this.afficherTousProduits = false;
     this.produitTrouve = null;
   
     if (this.categorieSelectionnee !== '') {
       // Filtrer les produits par catégorie
-      this.produits = this.tousLesProduits.filter(produit => produit.categorie === this.categorieSelectionnee);
-    } 
+      this.produits = this.tousLesProduits.filter(produit => produit.categorieID === parseInt(this.categorieSelectionnee));
+    }
+    
     const produitsTrouves = this.produits.filter(produit => produit.name.toLowerCase().includes(this.recherche.toLowerCase()));
     if (produitsTrouves.length > 0) {
       this.produitTrouve = produitsTrouves[0]; // Sélectionnez le premier produit trouvé
@@ -96,6 +75,7 @@ export class AllProduitComponent implements OnInit {
   
     this.suggestions = []; // Réinitialise les suggestions après la recherche
   }
+  
   
 
   
@@ -124,19 +104,7 @@ export class AllProduitComponent implements OnInit {
 
   
   //appelée lorsqu'il y a une modification dans le champ de recherche 
-  /*updateSuggestions(): void {
-    if (this.recherche.length >= 1) {
-      this.suggestions = this.tousLesProduits.filter(produit =>
-        produit.name.toLowerCase().includes(this.recherche.toLowerCase())
-      );
-      if (this.suggestions.length === 1 && this.suggestions[0].name.toLowerCase() === this.recherche.toLowerCase()) {
-        this.rechercherBouton();
-      }
-    } else {
-      this.suggestions = [];
-    }
-  }*/
-  updateSuggestions(): void {
+updateSuggestions(): void {
   if (this.recherche.length >= 1) {
     this.suggestions = this.produits.filter(produit =>
       produit.name.toLowerCase().startsWith(this.recherche.toLowerCase())
@@ -148,6 +116,7 @@ export class AllProduitComponent implements OnInit {
     this.suggestions = [];
   }
 }
+
 
 
   //appelée lorsque l'utilisateur clique sur l'une des suggestions affichées dans la liste 

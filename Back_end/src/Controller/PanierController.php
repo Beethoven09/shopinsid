@@ -2,30 +2,37 @@
 
 namespace App\Controller;
 
+use App\Entity\Panier;
+use App\Repository\PanierRepository;
+use App\Entity\Produits;
+use App\Repository\ProduitsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Produits;
-use App\Entity\Panier;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PanierController extends AbstractController
 {
+    private $panierRepository;
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    private $produitsRepository;
+
+    public function __construct(PanierRepository $panierRepository, ProduitsRepository $produitsRepository, EntityManagerInterface $entityManager)
     {
+        $this->panierRepository = $panierRepository;
         $this->entityManager = $entityManager;
+        $this->produitsRepository = $produitsRepository;
     }
 
     /**
-     * @Route("/panier/ajouter", name="ajouter_produit_panier", methods={"POST"})
-     */
-    public function ajouterProduit(Request $request): JsonResponse
+     * @Route("/panier", name="panier_list", methods={"GET"})
+     */    
+    public function getAllPanierItems(PanierRepository $panierRepository, ProduitsRepository $produitsRepository): JsonResponse
     {
-        $produitId = $request->request->get('produit_id');
-        $quantite = $request->request->get('quantite');
+        $items = $panierRepository->findAll();
 
         // Convertir les entités en tableau
         $data = [];
@@ -41,17 +48,7 @@ class PanierController extends AbstractController
                 'quantite' => $product->getQuantite(),
             ];
         }
-
-        // Pour créer un nouvel objet Panier
-        $panierItem = new Panier();
-        $panierItem->setProduit($produit);
-        $panierItem->setQuantite($quantite);
-
-        // Pour enregistrer le panier dans la base de données
-        $this->entityManager->persist($panierItem);
-        $this->entityManager->flush();
-
-        return new JsonResponse(['message' => 'Produit ajouté au panier'], 200);
+        return new JsonResponse($data);
     }
 
 
@@ -64,6 +61,7 @@ class PanierController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $produitId = $data['id'];
+        //return new JsonResponse($produitId);
         $quantite = $data['quantite'];
 
         // Récupérer le produit depuis la base de données
@@ -78,9 +76,8 @@ class PanierController extends AbstractController
         } else {
             // Si le produit n'existe pas dans le panier, créer un nouvel enregistrement
             $panier = new Panier();
-            $panier->setProduitid($produit);
+            $panier->setProduitid($produit->getId());
             $panier->setQuantite($quantite);
-            $panier->setPrixunitaire($produit->getPrix());
 
             // Sauvegarder le panier dans la base de données
             $this->entityManager->persist($panier);
@@ -92,26 +89,21 @@ class PanierController extends AbstractController
     }
 
     /**
-     * @Route("/panier/verifier", name="verifier_panier", methods={"GET"})
+     * @Route("/panier/delete/{id}", name="panier_delete", methods={"DELETE"})
      */
-    public function verifierPanier(): JsonResponse
+    public function supprimerDuPanier($id): Response
     {
-        $panierItems = $this->entityManager->getRepository(Panier::class)->findAll();
-
-        $produits = [];
-        foreach ($panierItems as $panierItem) {
-            $produits[] = [
-                'id' => $panierItem->getId(),
-                'produit' => [
-                    'id' => $panierItem->getProduit()->getId(),
-                    'nomDuProduit' => $panierItem->getProduit()->getNomDuProduit(),
-                    'description' => $panierItem->getProduit()->getDescription(),
-                    'prix' => $panierItem->getProduit()->getPrix(),
-                ],
-                'quantite' => $panierItem->getQuantite(),
-            ];
+        $panier = $this->panierRepository->findOneBy(['produitid' => $id]);
+    
+        if (!$panier) {
+            throw $this->createNotFoundException('Panier non trouvé');
         }
 
-        return new JsonResponse(['produits' => $produits], 200);
+        // Supprimer le panier de la base de données
+        $this->entityManager->remove($panier);
+        $this->entityManager->flush();
+
+        return $this->json(['success' => true, 'message' => 'produit supprimé du panier!'], 200);
     }
+
 }

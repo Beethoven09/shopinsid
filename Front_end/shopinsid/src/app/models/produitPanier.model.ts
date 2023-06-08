@@ -4,3 +4,4 @@ export interface ProduitPanier {
     produit: Produit;
     quantite: number;
 }
+

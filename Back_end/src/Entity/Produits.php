@@ -4,13 +4,11 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Categories;
-use App\Entity\Users;
 
 /**
  * Produits
  *
- * @ORM\Table(name="produits", indexes={@ORM\Index(name="UsersID", columns={"UsersID"}), @ORM\Index(name="CategorieID", columns={"CategorieID"})})
+ * @ORM\Table(name="produits")
  * @ORM\Entity(repositoryClass="App\Repository\ProduitsRepository")
  */
 class Produits
@@ -46,24 +44,11 @@ class Produits
     private $prix;
 
     /**
-     * @var \Categories
+     * @var int|null
      *
-     * @ORM\ManyToOne(targetEntity="Categories")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="CategorieID", referencedColumnName="ID")
-     * })
+     * @ORM\Column(name="CategorieID", type="integer", nullable=true)
      */
     private $categorieid;
-
-    /**
-     * @var \Users
-     *
-     * @ORM\ManyToOne(targetEntity="Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="UsersID", referencedColumnName="ID")
-     * })
-     */
-    private $usersid;
 
     /**
      * @var string|null
@@ -113,38 +98,29 @@ class Produits
         return $this;
     }
 
-    public function getCategorieid(): ?Categories
+    public function getCategorieid(): ?int
     {
         return $this->categorieid;
     }
 
-    public function setCategorieid(?Categories $categorieid): self
+    public function setCategorieid(?int $categorieid): self
     {
         $this->categorieid = $categorieid;
 
         return $this;
     }
 
-    public function getUsersid(): ?Users
-    {
-        return $this->usersid;
-    }
-
-    public function setUsersid(?Users $usersid): self
-    {
-        $this->usersid = $usersid;
-
-        return $this;
-    }
-    public function getImageUrl(): ?String
+    public function getImageurl(): ?string
     {
         return $this->imageurl;
     }
 
-    public function setImageUrl(?String $imageURl): self
+    public function setImageurl(?string $imageurl): self
     {
-        $this->imageurl = $imageURl;
+        $this->imageurl = $imageurl;
 
         return $this;
     }
+
+
 }

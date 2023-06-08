@@ -4,13 +4,12 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Users;
 
 /**
  * Contact
  *
- * @ORM\Table(name="contact", indexes={@ORM\Index(name="UsersID", columns={"UsersID"})})
- * @ORM\Entity(repositoryClass="App\Repository\Contactepository")
+ * @ORM\Table(name="contact")
+ * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
  */
 class Contact
 {
@@ -22,6 +21,13 @@ class Contact
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="UsersID", type="integer", nullable=true)
+     */
+    private $usersid;
 
     /**
      * @var string|null
@@ -51,19 +57,21 @@ class Contact
      */
     private $datemessage;
 
-    /**
-     * @var \Users
-     *
-     * @ORM\ManyToOne(targetEntity="Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="UsersID", referencedColumnName="ID")
-     * })
-     */
-    private $usersid;
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUsersid(): ?int
+    {
+        return $this->usersid;
+    }
+
+    public function setUsersid(?int $usersid): self
+    {
+        $this->usersid = $usersid;
+
+        return $this;
     }
 
     public function getNom(): ?string
@@ -114,15 +122,5 @@ class Contact
         return $this;
     }
 
-    public function getUsersid(): ?Users
-    {
-        return $this->usersid;
-    }
 
-    public function setUsersid(?Users $usersid): self
-    {
-        $this->usersid = $usersid;
-
-        return $this;
-    }
 }

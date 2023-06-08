@@ -26,7 +26,8 @@ class ProduitsController extends AbstractController
                 'name' => $product->getNomduproduit(),
                 'price' => $product->getPrix(),
                 'description' => $product->getDescription(),
-                'imageUrl' => $product->getImageUrl()
+                'imageUrl' => $product->getImageUrl(),
+                'categorieID' => $product->getCategorieid(),
             ];
         }
         return new JsonResponse($data);
@@ -42,7 +43,8 @@ class ProduitsController extends AbstractController
             'name' => $produit->getNomduproduit(),
             'price' => $produit->getPrix(),
             'description' => $produit->getDescription(),
-            'imageUrl' => $produit->getImageUrl()
+            'imageUrl' => $produit->getImageUrl(),
+            'categorieID' => $produit->getCategorieid(),
         ];
 
         return new JsonResponse($data);
@@ -60,7 +62,7 @@ class ProduitsController extends AbstractController
         $newProduct->setPrix($data['price'] ?? null);
         $newProduct->setDescription($data['description'] ?? null);
         $newProduct->setImageUrl($data['imageUrl'] ?? null);
-        $newProduct->setCategorieid($data['categorie'] ?? null);
+        $newProduct->setCategorieid($data['categorieID'] ?? null);
     
 
         $produitsRepository->save($newProduct, true);
@@ -87,7 +89,7 @@ class ProduitsController extends AbstractController
 
         $produit->setNomduproduit($data['name'] ?? $produit->getNomduproduit());
         $produit->setPrix($data['price'] ?? $produit->getPrix());
-        $produit->setPrix($data['categorie'] ?? $produit->getCategorieid());
+        $produit->setPrix($data['categorieID'] ?? $produit->getCategorieid());
         $produit->setPrix($data['description'] ?? $produit->getDescription());
 
 
