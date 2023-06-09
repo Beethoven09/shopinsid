@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProduitService } from 'src/app/services/produit.service';
 import { Produit } from 'src/app/models/produit.model';
 import { PanierService } from 'src/app/services/panier.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-all-produit',
@@ -19,7 +20,7 @@ export class AllProduitComponent implements OnInit {
   
   categorieSelectionnee: string = '';
 
-  constructor(private router: Router, private produitService: ProduitService, private panierService: PanierService,private route: ActivatedRoute) { }
+  constructor(private authService:AuthService, private router: Router, private produitService: ProduitService, private panierService: PanierService,private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['cate'];
@@ -33,6 +34,13 @@ export class AllProduitComponent implements OnInit {
     );
   }
   
+  logout(): void {
+    // Appeler la méthode de déconnexion dans le service d'authentification
+    this.authService.logout();
+
+    // Rediriger vers la page de connexion
+    this.router.navigate(['/connexion']);
+  }
   
   ouvrirPanier(pageName: string) {
     this.router.navigate([`/${pageName}`]);
