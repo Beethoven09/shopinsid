@@ -33,6 +33,11 @@ export class ProduitService {
           })
         );
       }
+
+      getProductsByCategory(categoryId: number): Observable<Produit[]> {
+        const url = `${this.apiUrl}?categorieID=${categoryId}`;
+        return this.http.get<Produit[]>(url);
+      }
       
       
 }
