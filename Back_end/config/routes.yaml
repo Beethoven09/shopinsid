@@ -27,6 +27,10 @@ login:
     path: /login
     controller: App\Controller\UsersController::login
     methods: POST
+logout:
+    path: /logout
+    controller: App\Controller\UsersController::logout
+    methods: POST
 register:
     path: /register
     controller: App\Controller\UsersController::register

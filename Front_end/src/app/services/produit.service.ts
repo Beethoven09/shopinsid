@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators'; //Ajouter avec //
     providedIn: 'root'
 })
 export class ProduitService {
-    private apiUrl = 'https://127.0.0.1:8000/products';
+    private apiUrl = 'http://127.0.0.1:8000/products';
 
     constructor(private http: HttpClient) { }
 
