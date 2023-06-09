@@ -18,7 +18,8 @@ export class AllProduitComponent implements OnInit {
   suggestions: Produit[] = [];
   tousLesProduits: Produit[] = [];
   
-  categorieSelectionnee: string = '';
+  categorieSelectionnee: number | null = null;
+  produitsFiltres: any[] = []; // tableau pour stocker les produits filtrés
 
   constructor(private authService:AuthService, private router: Router, private produitService: ProduitService, private panierService: PanierService,private route: ActivatedRoute) { }
 
@@ -27,6 +28,7 @@ export class AllProduitComponent implements OnInit {
     this.produitService.getProducts().subscribe(
       (data: Produit[]) => {
         this.produits = data;
+        this.produitsFiltres = [...this.produits];
       },
       (error) => {
         console.error('Error fetching products:', error);
@@ -60,6 +62,17 @@ export class AllProduitComponent implements OnInit {
       alert('Produit non disponible');
     }
   }
+
+  filtrerProduits() {
+    // Si aucune catégorie n'est sélectionnée, afficher tous les produits
+    if (this.categorieSelectionnee === null) {
+      this.produitsFiltres = [...this.produits];
+    } else {
+      // Filtrer les produits en fonction de la catégorie sélectionnée
+      this.produitsFiltres = this.produits.filter(produit => produit.categorieID === this.categorieSelectionnee);
+    }
+  }
+  
   
 
   //affcihe initialment tous les produits avant la recherche
@@ -68,12 +81,33 @@ export class AllProduitComponent implements OnInit {
     this.afficherTousProduits = false;
     this.produitTrouve = null;
   
-    if (this.categorieSelectionnee !== '') {
+    if (this.categorieSelectionnee !== null) {
       // Filtrer les produits par catégorie
-      this.produits = this.tousLesProduits.filter(produit => produit.categorieID === parseInt(this.categorieSelectionnee));
+      this.produitsFiltres = this.produits.filter(produit => produit.categorieID === this.categorieSelectionnee && produit.name.toLowerCase().includes(this.recherche.toLowerCase()));
+    } else {
+      this.produitsFiltres = this.produits.filter(produit => produit.name.toLowerCase().includes(this.recherche.toLowerCase()));
     }
     
-    const produitsTrouves = this.produits.filter(produit => produit.name.toLowerCase().includes(this.recherche.toLowerCase()));
+    
+  
+    const produitsTrouves = this.produitsFiltres.filter(produit => produit.name.toLowerCase().includes(this.recherche.toLowerCase()));
+    if (produitsTrouves.length > 0) {
+      this.produitTrouve = produitsTrouves[0]; // Sélectionnez le premier produit trouvé
+    } else {
+      alert('Aucun produit trouvé');
+      this.filtrerProduits(); // Filtre les produits de la catégorie sélectionnée
+      this.recherche = ''; // Vide la barre de recherche
+    }
+    
+  
+    this.suggestions = []; // Réinitialise les suggestions après la recherche
+  }
+  
+
+  afficherProduitTrouve(): void {
+    const produitsTrouves = this.produits
+      .filter(produit => produit.categorieID === this.categorieSelectionnee)
+      .filter(produit => produit.name.toLowerCase().includes(this.recherche.toLowerCase()));
     if (produitsTrouves.length > 0) {
       this.produitTrouve = produitsTrouves[0]; // Sélectionnez le premier produit trouvé
     } else {
@@ -87,7 +121,6 @@ export class AllProduitComponent implements OnInit {
   
 
   
-
   //pour pouvoir confirmer une recherche en appuyant sur 'entrée'
   selectedSuggestionIndex: number = -1;
   onKeyDown(event: any): void {
@@ -114,9 +147,17 @@ export class AllProduitComponent implements OnInit {
   //appelée lorsqu'il y a une modification dans le champ de recherche 
 updateSuggestions(): void {
   if (this.recherche.length >= 1) {
-    this.suggestions = this.produits.filter(produit =>
-      produit.name.toLowerCase().startsWith(this.recherche.toLowerCase())
-    );
+    if (this.categorieSelectionnee === null) {
+      this.suggestions = this.produits.filter(produit =>
+        produit.name.toLowerCase().startsWith(this.recherche.toLowerCase())
+      );
+    } else {
+      this.suggestions = this.produits
+        .filter(produit => produit.categorieID === this.categorieSelectionnee)
+        .filter(produit =>
+          produit.name.toLowerCase().startsWith(this.recherche.toLowerCase())
+        );
+    }
     if (this.suggestions.length === 1 && this.suggestions[0].name.toLowerCase() === this.recherche.toLowerCase()) {
       this.rechercherBouton();
     }
@@ -124,7 +165,6 @@ updateSuggestions(): void {
     this.suggestions = [];
   }
 }
-
 
 
   //appelée lorsque l'utilisateur clique sur l'une des suggestions affichées dans la liste 
@@ -149,23 +189,24 @@ updateSuggestions(): void {
 
 
   //Pour afficher la liste de tous les produits
-afficheTousProduits(): void {
-  this.afficherTousProduits = true;
-  this.produitTrouve = null;
-  this.recherche = ''; // Réinitialise le champ de recherche
-
-  // Recharge la liste de tous les produits
-  this.produitService.getProducts().subscribe(
-    (data: Produit[]) => {
-      this.produits = data;
-    },
-    (error) => {
-      console.error('Error fetching products:', error);
-    }
-  );
-}
-
-
+  afficheTousProduits(): void {
+    this.afficherTousProduits = true;
+    this.produitTrouve = null;
+    this.recherche = ''; // Réinitialise le champ de recherche
+  
+    // Recharge la liste de tous les produits
+    this.produitService.getProducts().subscribe(
+      (data: Produit[]) => {
+        this.produits = data;
+        this.tousLesProduits = data; // Met à jour la liste complète des produits
+        this.produitsFiltres = this.produits; // Met à jour les produits filtrés avec tous les produits
+      },
+      (error) => {
+        console.error('Error fetching products:', error);
+      }
+    );
+    
+  }
 
   //met à jour de l'index de la suggestion sélectionnée lors de la navigation avec les touches de direction
   navigSuggestion(direction: 'up' | 'down'): void {
@@ -178,6 +219,6 @@ afficheTousProduits(): void {
       this.selectedSuggestionIndex = (this.selectedSuggestionIndex + 1) % suggestionsLength;
     }
   }
-
+  
 
 }
