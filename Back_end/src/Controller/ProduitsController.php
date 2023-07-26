@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Categories;
 use App\Entity\Produits;
+use App\Repository\CategoriesRepository;
 use App\Repository\ProduitsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,11 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProduitsController extends AbstractController
 {
     /**
-     * @Route("/products", name="get_all_products", methods={"GET"})
+     * @Route("/products", name="get_all_products", methods="GET")
      */
     public function getAllProducts(ProduitsRepository $produitsRepository): JsonResponse
     {
-        $products = $produitsRepository->findAll();
+        $products = $produitsRepository->findBy([], ['id' => 'DESC']);
 
         // Convertir les entités en tableau
         $data = [];
@@ -96,5 +98,82 @@ class ProduitsController extends AbstractController
         $produitsRepository->save($produit, true);
 
         return new JsonResponse(['status' => 'Produit modifié avec succès']);
+    }
+
+    /**
+     * @Route("/categories", methods="GET")
+     */
+    public function getCategories(CategoriesRepository $categories): JsonResponse
+    {
+        $category = $categories->findAll();
+
+        foreach ($category as $categ) {
+            $data[] = [
+                'id' => $categ->getId(),
+                'name' => $categ->getNomCategorie(),
+            ];
+        }
+        
+        if($data) 
+        {
+            return new JsonResponse($data);
+        }
+            
+    }
+
+    /**
+     * @Route("/sendCategories/{id}", name="send_categories", methods="GET")
+     */
+    public function CategoriesName(Categories $cate, CategoriesRepository $categs, ProduitsRepository $product): JsonResponse
+    {
+        
+    $categoryId = $cate->getId();
+    $category = $categs->find($categoryId);
+    $categoryId = $category->getId();
+    $categoryName = $category->getNomCategorie();
+    $productsInCategory = $product->findBy(['categorieid' => $categoryId]);
+
+    foreach ($productsInCategory as $prod) {
+            $data[] = [
+                'id' => $prod->getId(),
+                'name' => $prod->getNomduproduit(),
+                'price' => $prod->getPrix(),
+                'description' => $prod->getDescription(),
+                'imageUrl' => $prod->getImageUrl(),
+                'categorie' => $categoryName,
+                'categoryId' => $categoryId
+            ];
+        }
+        
+        if (!$productsInCategory) {
+            return new JsonResponse(['error' => 'La catégorie spécifiée n\'existe pas'], 404);
+        }else{
+            return new JsonResponse($data);
+        }
+        
+    }
+    
+    /**
+     * @Route("/getUrl/{id}", methods="GET")
+     */
+    public function getUrl(Categories $catego, CategoriesRepository $categos, ProduitsRepository $product): JsonResponse
+    {
+        $categoryId = $catego->getId();
+        $categoryName = $catego->getNomCategorie();
+        $category = $categos->find($categoryId);
+        $productsInCategory = $product->findBy(['categorieid' => $category]);
+
+        function addUrlParam($params=[]){
+        $p = array_merge($_GET, $params);
+        $qs = http_build_query($p);
+        return basename($_SERVER['PHP_SELF']).$qs;
+        } 
+
+        $url = addUrlParam(['' => $categoryName]);
+    
+        if($productsInCategory){
+            return new JsonResponse($url);
+        }
+    
     }
 }

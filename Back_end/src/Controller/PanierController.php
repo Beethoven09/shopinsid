@@ -29,7 +29,7 @@ class PanierController extends AbstractController
 
     /**
      * @Route("/panier", name="panier_list", methods={"GET"})
-     */    
+     */
     public function getAllPanierItems(PanierRepository $panierRepository, ProduitsRepository $produitsRepository): JsonResponse
     {
         $items = $panierRepository->findAll();
@@ -57,8 +57,10 @@ class PanierController extends AbstractController
      */
     public function ajouterAuPanier(Request $request): Response
     {
-        // Récupérer les données envoyées dans la requête
+        // Récupérer les données envoyées depuis le front-end, on recupère le token depuis l'en-tête de la requête
         $data = json_decode($request->getContent(), true);
+        $tokenstring = $request->headers->get('Authorization');
+        $token = explode(' ', $tokenstring);
 
         $produitId = $data['id'];
         //return new JsonResponse($produitId);
@@ -94,7 +96,7 @@ class PanierController extends AbstractController
     public function supprimerDuPanier($id): Response
     {
         $panier = $this->panierRepository->findOneBy(['produitid' => $id]);
-    
+
         if (!$panier) {
             throw $this->createNotFoundException('Panier non trouvé');
         }
@@ -105,5 +107,4 @@ class PanierController extends AbstractController
 
         return $this->json(['success' => true, 'message' => 'produit supprimé du panier!'], 200);
     }
-
 }

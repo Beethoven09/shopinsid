@@ -37,9 +37,14 @@ export class PanierComponent implements OnInit {
       alert('Produit supprimé du panier avec succès');
     });
   }
-  
+
   commander() {
     // Logique de la commande
-    alert('Commande passée avec succès');
+    if(!this.panierItems){
+      alert('Oups votre panier est vide, auriez-vous oublié de commander ?');
+    }else{
+      alert('Commande passée avec succès');
+    }
   }
+
 }

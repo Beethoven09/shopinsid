@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * Users
@@ -11,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
  */
-class Users
+class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @var int
@@ -39,7 +40,7 @@ class Users
     /**
      * @var string|null
      *
-     * @ORM\Column(name="MotDePasse", type="string", length=100, nullable=true)
+     * @ORM\Column(name="MotDePasse", type="string", length=255, nullable=true)
      */
     private $motdepasse;
 
@@ -58,9 +59,9 @@ class Users
     private $adresse;
 
     /**
-     * @var int|null
+     * @var string|null
      *
-     * @ORM\Column(name="Tel", type="integer", nullable=true)
+     * @ORM\Column(name="Tel", type="string", length=20, nullable=true)
      */
     private $tel;
 
@@ -78,6 +79,13 @@ class Users
      */
     private $email;
 
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="roles", type="json", nullable=false)
+     */
+    private $roles = ['ROLE_USER'];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,7 +99,6 @@ class Users
     public function setNom(?string $nom): self
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -103,7 +110,6 @@ class Users
     public function setPrenom(?string $prenom): self
     {
         $this->prenom = $prenom;
-
         return $this;
     }
 
@@ -115,7 +121,6 @@ class Users
     public function setMotdepasse(?string $motdepasse): self
     {
         $this->motdepasse = $motdepasse;
-
         return $this;
     }
 
@@ -127,7 +132,6 @@ class Users
     public function setLanguepreferee(?string $languepreferee): self
     {
         $this->languepreferee = $languepreferee;
-
         return $this;
     }
 
@@ -139,19 +143,17 @@ class Users
     public function setAdresse(?string $adresse): self
     {
         $this->adresse = $adresse;
-
         return $this;
     }
 
-    public function getTel(): ?int
+    public function getTel(): ?string
     {
         return $this->tel;
     }
 
-    public function setTel(?int $tel): self
+    public function setTel(?string $tel): self
     {
         $this->tel = $tel;
-
         return $this;
     }
 
@@ -163,7 +165,6 @@ class Users
     public function setDatedenaissance(?\DateTimeInterface $datedenaissance): self
     {
         $this->datedenaissance = $datedenaissance;
-
         return $this;
     }
 
@@ -175,9 +176,60 @@ class Users
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
         return $this;
     }
 
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
 
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->motdepasse;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials()
+    {
+        // Ici, vous pouvez effacer les données sensibles de l'utilisateur
+        // Par exemple, vous pouvez mettre $this->motdepasse à null
+        $this->motdepasse = null;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
+
+    public function getIsAdmin(): bool
+    {
+        return in_array('ROLE_ADMIN', $this->roles);
+    }
+
+    public function setIsAdmin(bool $isAdmin): void
+    {
+        if ($isAdmin) {
+            if (!in_array('ROLE_ADMIN', $this->roles)) {
+                $this->roles[] = 'ROLE_ADMIN';
+            }
+        } else {
+            $this->roles = array_diff($this->roles, ['ROLE_ADMIN']);
+        }
+    }
 }

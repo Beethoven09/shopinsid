@@ -1,24 +1,43 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Revenir à l'accueil</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor01">
-  
-    </div>
-  </div>
-</nav>
-<div>
-  <form (ngSubmit)="login()">
-    <label for="username">Nom d'utilisateur :</label>
-    <input type="text" id="username" name="username" placeholder="Saisissez votre nom" [(ngModel)]="connexionData.username" required>
-    <br />
-    <label for="password">Mot de passe :</label>
-    <input type="password" id="password" name="password" placeholder="Saisissez votre mot de passe" [(ngModel)]="connexionData.password" required>
-    <br />
-    <input type="submit" value="Se connecter">
-  </form>
-  <button (click)="redirectToPage('accueil')">Retour</button>
+<div class="jumbotron titre-inscription">
+  <h1 class="display-4">connexion</h1>
+  <p class="lead">Connectez-vous pour avoir accès au service du site</p>
 </div>
 
+<div class="connexion">
+  <!-- Formulaire de connexion -->
+  <form (ngSubmit)="login(); redirectToPage('all-produit');">
+    <label for="email">Nom d'utilisateur :</label>
+    <input class="input-connect" type="email" id="email" name="email" placeholder="Saisissez votre email"
+      [(ngModel)]="connexionData.email" required>
+    <br />
+    <label for="password">Mot de passe :</label>
+    <input class="input-connect" type="password" id="password" name="password"
+      placeholder="Saisissez votre mot de passe" [(ngModel)]="connexionData.password" required>
+    <br />
+    <input class="button-submit" type="submit" value="Se connecter">
+    <!-- Case à cocher "Se souvenir de moi" -->
+    <div class="remember-me-container">
+      <input type="checkbox" id="rememberMe" name="rememberMe" [(ngModel)]="connexionData.rememberMe">
+      <label for="rememberMe">Se souvenir de moi</label>
+    </div>
+  </form>
+
+  <div class="reset" (click)="toggleReset()">
+    <ng-container *ngIf="afficherInput; else inputMask">
+      <p class="ici">Vous vous rappeler de vos identifiants.</p>
+    </ng-container>
+  </div>
+
+  <!-- Formulaire de réinitialisation du mot de passe -->
+  <ng-template #inputMask>
+    <p class="ici">Vous avez oublié identifiant<br> ou votre mot de passe. </p>
+  </ng-template>
+  <ng-container *ngIf="afficherInput;">
+    <form>
+      <label for="email">Votre email</label>
+      <input class="input-connect" type="email" id="email" name="email" type="email"
+        placeholder="Saissez votre@email.com">
+      <input class="button-submit" type="submit" value="Se connecter">
+    </form>
+  </ng-container>
+</div>

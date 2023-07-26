@@ -8,19 +8,19 @@ import { ProduitPanier } from '../models/produitPanier.model';
   providedIn: 'root'
 })
 export class PanierService {
-  private apiUrl = 'http://127.0.0.1:8000'; // Remplacez par l'URL de votre API
+  private apiUrl = 'http://127.0.0.1:8000/'; // Remplacez par l'URL de votre API
   panierItems: ProduitPanier[] = []; //Ajouter avec //
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   ajouterAuPanier(produit: Produit, quantite: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/panier/add`, {'id': produit.id, quantite});
+    return this.http.post(`${this.apiUrl}/panier/add`, { 'id': produit.id, quantite });
   }
 
   supprimerDuPanier(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/panier/delete/${id}`);
   }
-    
+
   getProduitsPanier(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/panier`);
   }
@@ -43,8 +43,8 @@ export class PanierService {
 
     return parseFloat(total.toFixed(2));
   }
-  
 
-  
-  
+
+
+
 }

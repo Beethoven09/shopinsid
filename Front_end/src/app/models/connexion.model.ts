@@ -1,5 +1,5 @@
 export interface ConnexionData {
-    username: string;
-    password: string;
-  }
-  
+  email: string;
+  password: string;
+  rememberMe: boolean;
+}

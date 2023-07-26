@@ -1,22 +1,20 @@
-<!--<header>
+<!-- <header>
   <nav class="menu-bar">
-    <div class="search-bar">
-      <input type="text" placeholder="Rechercher..." [(ngModel)]="recherche" (keydown)="onKeyDown($event)" (input)="updateSuggestions()"> 
-      <select [(ngModel)]="categorieSelectionnee">
-        <option value="">Toutes les catégories</option>
-        <option value="1">Collection</option>
-        <option value="2">Gaming</option>
-        <option value="3">Musique</option>
-        <option value="4">Véhicule</option>
-      </select>
-      
+      <div class="search-bar">
+      /* Barre de recherche pour un produit */
+      <input type="text" placeholder="Rechercher..." [(ngModel)]="recherche" (keydown)="onKeyDown($event)" (input)="updateSuggestions()">
       <button (click)="rechercherBouton()">Rechercher</button>
-
+      /* Menu déroulant listant les différentes catégories */
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="categorieSelectionnee">
+        <option (click)="redirectToPage('all-produit')">Toutes les catégories</option>
+        <option *ngFor="let cate of liste_cate" class="btn" (click)="filtrerCategorie(cate.id)">
+          {{ cate.id }} - {{ cate.name }}
+        </option>
+      </select>
       <div class="suggestions" *ngIf="suggestions.length > 0">
         <ul>
-          <li *ngFor="let suggestion of suggestions; let i = index" 
-              [ngClass]="{ 'selected': i === selectedSuggestionIndex }"
-              (click)="selectSuggestion(suggestion)">
+          <li *ngFor="let suggestion of suggestions; let i = index"
+            [ngClass]="{ 'selected': i === selectedSuggestionIndex }" (click)="selectSuggestion(suggestion)">
             {{ suggestion.name}}
           </li>
         </ul>
@@ -24,88 +22,20 @@
     </div>
     <ul class="menu-items">
       <li>
-        <button class="panier-button" (click)="ouvrirPanier('panier')">Panier</button>
+        <button class="panier-button" (click)="ouvrirPanier('panier')">Panier</button></li>
+      <li><button class="profil-button" (click)="redirectToPage('profil')">Profil</button>
       </li>
-      <li><a (click)="afficheTousProduits()" class="left-menu">Accueil</a></li>
-      <li><a href="#" class="left-menu">Contact</a></li>
-      <li><a href="#" class="left-menu" (click)="logout()">Déconnexion</a></li>
+      <li><button (click)="ouvrirPanier('/')" class="left-menu">Accueil</button></li>
+      <li><button (click)="ouvrirPanier('contact')" class="left-menu">Contact</button></li>
     </ul>
   </nav>
-</header>
-
-<div class="container">
-  <div class="box" *ngFor="let produit of produits" [class.hide]="categorieSelectionnee !== '' && produit.categorieID !== +categorieSelectionnee">
-    <ng-container *ngIf="afficherTousProduits || produit === produitTrouve">
-      <app-produit-compact [produit]="produit"></app-produit-compact>
-    </ng-container>
-  </div>
-</div>-->
-
-<header>
-  <nav class="menu-bar">
-    <div class="search-bar">
-      <input type="text" placeholder="Rechercher..." [(ngModel)]="recherche" (keydown)="onKeyDown($event)" (input)="updateSuggestions()"> 
-      <select [(ngModel)]="categorieSelectionnee" (ngModelChange)="filtrerProduits()">
-        <option [ngValue]="null">Toutes les catégories</option>
-        <option [ngValue]="1">Collection</option>
-        <option [ngValue]="2">Gaming</option>
-        <option [ngValue]="3">Musique</option>
-        <option [ngValue]="4">Véhicule</option>
-      </select>
-      
-      
-      
-      <button (click)="rechercherBouton()">Rechercher</button>
-
-      <div class="suggestions" *ngIf="suggestions.length > 0">
-        <ul>
-          <li *ngFor="let suggestion of suggestions; let i = index" 
-              [ngClass]="{ 'selected': i === selectedSuggestionIndex }"
-              (click)="selectSuggestion(suggestion)">
-            {{ suggestion.name}}
-          </li>
-        </ul>
-      </div>
-    </div>
-    <ul class="menu-items">
-      <li>
-        <button class="panier-button" (click)="ouvrirPanier('panier')">Panier</button>
-      </li>
-      <li><a (click)="afficheTousProduits()" class="left-menu">Accueil</a></li>
-      <li><a href="#" class="left-menu">Contact</a></li>
-      <li><a href="#" class="left-menu">Déconnexion</a></li>
-    </ul>
-  </nav>
-</header>
-
-<!--<div class="container">
-  <div class="box" *ngFor="let produit of produits" [class.hide]="categorieSelectionnee !== '' && produit.categorieID !== +categorieSelectionnee">
-    <div class="box" *ngFor="let produit of produitsFiltres">
-
-    <ng-container *ngIf="afficherTousProduits || produit === produitTrouve">
-      <app-produit-compact [produit]="produit"></app-produit-compact>
-    </ng-container>
-  </div>
-</div>-->
-
-<div class="container">
-  <div class="box" *ngFor="let produit of produitsFiltres">
+</header> -->
+<div>
+  <h1 class="text-center">Vos Articles</h1>
+</div>
+<!-- Affichage des produits-->
+<div class="containeur">
+  <div class="box" *ngFor="let produit of produits">
     <app-produit-compact [produit]="produit"></app-produit-compact>
   </div>
 </div>
-
-
-<!--<div class="container">
-  <div class="box" *ngFor="let produit of produits">
-    <h3>{{ produit.name }}</h3>
-    <p>Catégorie : {{ produit.categorieID }}</p>
-  </div>
-</div>-->
-
-
-
- 
-
-
-
- 

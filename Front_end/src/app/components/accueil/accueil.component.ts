@@ -1,6 +1,7 @@
-import { Produit } from './../../models/produit.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProduitService } from 'src/app/services/produit.service';
+import { Produit } from 'src/app/models/produit.model';
 
 @Component({
   selector: 'app-accueil',
@@ -8,32 +9,28 @@ import { Router } from '@angular/router';
   styleUrls: ['./accueil.component.scss']
 })
 export class AccueilComponent implements OnInit{  
-  category_list !: any[];
+  liste_cate!: any[];
 
-    constructor(private router: Router)
-      { }
+    constructor(private router: Router, private produitService: ProduitService){ }
     /*Fonction qui renvoie vers une autre page */
-    redirectToPage(pageName : string) {
+    redirectToPage(pageName : string, id: string | null = null) {
       /*Ce qu'il faut écrire dans pageName se trouve dans les paths de app-routing.module*/
-      this.router.navigate([`${pageName}`]);
+      if (id===null){this.router.navigate([`${pageName}`]);}
+      else{this.router.navigate([`${pageName}`, id]);}
     }
   
-    ngOnInit(){ 
-      /* données pour le menu déroulant */
-      this.category_list = [
-        { id: 1, name: "Jeux" },
-        { id: 2, name: "Lecture" },
-        { id: 3, name: "Film"},
-        { id: 4, name: "Electroménager"},
-        { id: 5, name: "Jardinerie"},
-        { id: 6, name: "Bricolage"},
-        { id: 7, name: "Electronique"}
-      ];   
+    ngOnInit(){
+      try{
+        this.produitService.getCategories().subscribe(
+          (data: Produit[]) => {
+            this.liste_cate = data;
+            console.log(this.liste_cate);
+          }
+        );
+      }
+      catch(error) {
+          console.error('Error fetching categories:', error);
+        }
+      }
+      
     }
-    ngOptions = [3,6,1,4,2,10,7,5,9,8]
-    ngDropdown = this.ngOptions[1];
-
-     
-}
- 
-  

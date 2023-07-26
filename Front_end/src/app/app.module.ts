@@ -5,6 +5,8 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+
 
 
 
@@ -18,6 +20,16 @@ import { AccueilComponent } from './components/accueil/accueil.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PanierComponent } from './components/panier/panier.component';
+import { ProfilComponent } from './components/profil/profil.component';
+import { ModifierProfilComponent } from './components/modifier-profil/modifier-profil.component';
+import { CommandesComponent } from './components/commandes/commandes.component';
+import { ChatsComponent } from './components/chats/chats.component';
+import { AdressesComponent } from './components/adresses/adresses.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { RemboursementComponent } from './components/remboursement/remboursement.component';
+import { VendeurComponent } from './components/vendeur/vendeur.component';
+import { FavorisComponent } from './components/favoris/favoris.component';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -29,7 +41,17 @@ import { PanierComponent } from './components/panier/panier.component';
     InscriptionComponent,
     ConnexionComponent,
     AccueilComponent,
-    PanierComponent
+    PanierComponent,
+    ProfilComponent,
+    ModifierProfilComponent,
+    CommandesComponent,
+    ChatsComponent,
+    AdressesComponent,
+    ContactComponent,
+    RemboursementComponent,
+    VendeurComponent,
+    FavorisComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -38,9 +60,10 @@ import { PanierComponent } from './components/panier/panier.component';
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AuthService, CookieService],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
