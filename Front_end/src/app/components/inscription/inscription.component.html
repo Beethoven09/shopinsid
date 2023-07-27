@@ -2,8 +2,12 @@
   <div class="row justify-content-md-center">
     <div class="col-md-6">
       <h1 class="text-center display-4">Inscription</h1>
+      <!-- Formulaire d'inscription avec formGroup et ngSubmit -->
       <form [formGroup]="registerForm" (ngSubmit)="register()" class="row">
+
+        <!-- Colonne de gauche -->
         <div class="col-md-6">
+          <!-- Champ pour le nom -->
           <div class="form-group">
             <label for="nom">Nom</label>
             <input type="text" id="nom" formControlName="nom" class="form-control"
@@ -13,11 +17,13 @@
             </div>
           </div>
 
+          <!-- Champ pour le prénom -->
           <div class="form-group">
             <label for="prenom">Prénom</label>
             <input type="text" id="prenom" formControlName="prenom" class="form-control">
           </div>
 
+          <!-- Champ pour le mot de passe -->
           <div class="form-group">
             <label for="password">Mot de passe</label>
             <input type="password" id="password" formControlName="password" class="form-control"
@@ -29,6 +35,7 @@
             </div>
           </div>
 
+          <!-- Champ pour la confirmation du mot de passe -->
           <div class="form-group">
             <label for="confirm">Confirmer le mot de passe</label>
             <input type="password" id="confirm" formControlName="confirm" class="form-control"
@@ -38,6 +45,7 @@
             </div>
           </div>
 
+          <!-- Champ pour la date de naissance -->
           <div class="form-group">
             <label for="birthdate">Date de naissance</label>
             <input type="date" id="birthdate" formControlName="birthdate" class="form-control"
@@ -49,7 +57,9 @@
           </div>
         </div>
 
+        <!-- Colonne de droite -->
         <div class="col-md-6">
+          <!-- Champ pour l'email -->
           <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" formControlName="email" class="form-control"
@@ -60,11 +70,13 @@
             </div>
           </div>
 
+          <!-- Champ pour le téléphone -->
           <div class="form-group">
             <label for="tel">Téléphone</label>
             <input type="tel" id="tel" formControlName="tel" class="form-control">
           </div>
 
+          <!-- Champ pour l'adresse -->
           <div class="form-group">
             <label for="adresse">Adresse</label>
             <input type="text" id="adresse" formControlName="adresse" class="form-control"
@@ -74,6 +86,7 @@
             </div>
           </div>
 
+          <!-- Champ pour la langue préférée -->
           <div class="form-group">
             <label for="languePreferee">Langue préférée</label>
             <select id="languePreferee" formControlName="languePreferee" class="form-control"
@@ -89,6 +102,7 @@
             </div>
           </div>
 
+          <!-- Champ pour le rôle -->
           <div class="form-group">
             <label for="role">Rôle</label>
             <select id="role" formControlName="role" class="form-control"
@@ -101,6 +115,7 @@
             </div>
           </div>
 
+          <!-- Bouton pour soumettre le formulaire -->
           <div class="form-group d-flex">
             <input class="btn submit" type="submit" value="S'inscrire">
           </div>

@@ -17,7 +17,6 @@ class PanierController extends AbstractController
 {
     private $panierRepository;
     private $entityManager;
-
     private $produitsRepository;
 
     public function __construct(PanierRepository $panierRepository, ProduitsRepository $produitsRepository, EntityManagerInterface $entityManager)
@@ -32,11 +31,13 @@ class PanierController extends AbstractController
      */
     public function getAllPanierItems(PanierRepository $panierRepository, ProduitsRepository $produitsRepository): JsonResponse
     {
+        // Récupérer tous les éléments du panier depuis la base de données
         $items = $panierRepository->findAll();
 
-        // Convertir les entités en tableau
+        // Convertir les entités en tableau pour renvoyer en réponse JSON
         $data = [];
         foreach ($items as $product) {
+            // Récupérer les informations du produit à partir de l'entité Produits
             $ProductInfo = $produitsRepository->findOneBy(['id' => $product->getProduitid()]);
             $data[] = [
                 'id' => $ProductInfo->getId(),
@@ -51,22 +52,20 @@ class PanierController extends AbstractController
         return new JsonResponse($data);
     }
 
-
     /**
      * @Route("/panier/add/", name="panier_add", methods={"POST"})
      */
     public function ajouterAuPanier(Request $request): Response
     {
-        // Récupérer les données envoyées depuis le front-end, on recupère le token depuis l'en-tête de la requête
+        // Récupérer les données envoyées depuis le front-end (produitId et quantite)
         $data = json_decode($request->getContent(), true);
         $tokenstring = $request->headers->get('Authorization');
         $token = explode(' ', $tokenstring);
 
         $produitId = $data['id'];
-        //return new JsonResponse($produitId);
         $quantite = $data['quantite'];
 
-        // Récupérer le produit depuis la base de données
+        // Récupérer le produit depuis la base de données en utilisant son identifiant
         $produit = $this->entityManager->getRepository(Produits::class)->find($produitId);
 
         // Rechercher si le produit existe déjà dans le panier
@@ -76,7 +75,7 @@ class PanierController extends AbstractController
             // Si le produit existe déjà dans le panier, ajouter la quantité spécifiée
             $panier->setQuantite($panier->getQuantite() + $quantite);
         } else {
-            // Si le produit n'existe pas dans le panier, créer un nouvel enregistrement
+            // Si le produit n'existe pas dans le panier, créer un nouvel enregistrement de panier
             $panier = new Panier();
             $panier->setProduitid($produit->getId());
             $panier->setQuantite($quantite);
@@ -95,6 +94,7 @@ class PanierController extends AbstractController
      */
     public function supprimerDuPanier($id): Response
     {
+        // Rechercher le panier associé à l'ID du produit spécifié
         $panier = $this->panierRepository->findOneBy(['produitid' => $id]);
 
         if (!$panier) {

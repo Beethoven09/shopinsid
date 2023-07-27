@@ -30,7 +30,7 @@ class ProfilController extends AbstractController
      */
     public function modifierInformations(Request $request): Response
     {
-        // Récupérer les données envoyées depuis le front-end, on recupère le token depuis l'en-tête de la requête
+        // Récupérer les données envoyées depuis le front-end, on récupère le token depuis l'en-tête de la requête
         $data = json_decode($request->getContent(), true);
         $tokenstring = $request->headers->get('Authorization');
         $token = explode(' ', $tokenstring);
@@ -46,23 +46,26 @@ class ProfilController extends AbstractController
             // L'utilisateur est bien authentifié
             $userId = $activeToken->getIdUser();
             $user = $this->userRepository->findOneBy(['id' => $userId]);
+
             // Mettre à jour les informations du profil avec les nouvelles données
             $user->setNom($data['nom']);
             $user->setPrenom($data['prenom']);
             $user->setEmail($data['email']); // Ajouter le champ email
             $user->setTel($data['tel']);
             $user->setAdresse($data['adresse']);
+
             // Vérifier si le nouveau mot de passe est différent de l'ancien mot de passe, si oui on change, si le mdp est vide ou identique on persist sans changer le mdp. 
             $newPassword = $data['motdepasse'];
             if (!$this->passwordHasher->isPasswordValid($user, $newPassword) && $newPassword != '') {
-
                 // Assurer que le nouveau mot de passe est correctement haché avant d'être enregistré dans la base de données.
                 $hashedNewPassword = $this->passwordHasher->hashPassword($user, $newPassword);
                 $user->setMotdepasse($hashedNewPassword);
             }
+
             // Enregistrer les modifications dans la base de données
             $this->entityManager->persist($user);
             $this->entityManager->flush();
+
             // Répondre avec un message de succès
             return new JsonResponse(['message' => 'Informations du profil mises à jour avec succès'], Response::HTTP_OK);
         } else {
